@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>评论管理</title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" type="text/css" href="../css/staffList.css"/>
+  	<style>
+			.button_group{
+				margin-left: 50px;
+			}
+  	</style>
+	</head>
+	<body>
+		<div class="content_body">
+			<span class="layui-breadcrumb nav_loc">
+				<span>当前位置：</span>
+			  <a><cite>评论管理</cite></a>
+			</span>
+					<!-- 内容开始 -->
+			<div class="staff_box">
+				<div class="staff_title">评论管理
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">昵称：</label>
+						<div class="layui-input-inline">
+					  	<input type="text" name="petname"  id="username" class="layui-input layui-input-inline">
+						</div>
+					</div>
+					<div class="layui-inline ">
+						<label class="layui-form-label">手机号：</label>
+						<div class="layui-input-inline">
+					 		<input type="text" name="number" id="number" class="layui-input layui-input-inline">
+						</div>
+					</div> 
+					<div class="layui-inline ">
+						<label class="layui-form-label">内容：</label>
+						<div class="layui-input-inline">
+					  	<input type="text" name="cont" id="content" class="layui-input layui-input-inline">
+						</div>
+					</div> 
+					<div class="layui-inline button_group">
+						<button class="layui-btn layui-btn-normal layui-btn-sm">查询</button>
+						<button class="layui-btn layui-btn-sm">返回</button>
+					</div> 
+				</div>
+				<hr>
+				</div>
+				<div class="layui-form">
+					<table class="layui-table" id="test" lay-size="sm">
+					  <thead>
+					    <tr>
+					      <th><input type="checkbox"  id="allChoose" lay-skin="primary" lay-filter="allChoose" /></th>
+					      <th>序号</th>
+					      <th>菜品</th>
+					      <th>评论内容</th>
+					      <th>昵称</th>
+					      <th>手机号</th>
+					      <th>评论时间</th>
+					      <th>操作</th>
+					    </tr> 
+					  </thead>
+					  <c:choose>
+						<c:when test="${empty users}">
+							<tr>
+								<td>
+									无数据！       
+								</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${users}" var="user" varStatus="status">
+							<tr>
+							 <th><input type="checkbox"  name="ck" value="${status.index+1}" lay-skin="primary" /></th>
+								<th>${status.index+1}</th>  	
+								<th>${user.user_account}</th> 
+								<th>${user.user_name}</th>		
+								<th>${user.user_phone}</th>
+								<th>${user.user_role}</th>		
+								<th>${user.user_email}</th>
+								<th class="receiptManage">
+			            <a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" onclick="del(${status.index+1});">删除</a>
+								</th>
+							</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>	
+					  <!-- <tbody>
+					     <tr>
+					      <td><input type="checkbox"  lay-skin="primary"/></td>
+					      <td>3</td>
+					       <td></td>
+					      <td>好吃！</td>
+					      <td>空虚道长</td>
+					      <td>13914066261</td>
+					      <td>2014-11-12&nbsp;09:30:23</td>
+					      <td><a href="javascript:;" class="layui-btn layui-btn-normal" onclick="del()">删除</a></td>
+					    </tr>
+					     <tr>
+					      <td><input type="checkbox"  lay-skin="primary"/></td>
+					      <td>4</td>
+					       <td></td>
+					      <td>好吃！</td>
+					      <td>梅超风</td>
+					      <td>13914066261</td>
+					      <td>2014-11-12&nbsp;09:30:23</td>
+					      <td><a href="javascript:;" class="layui-btn layui-btn-normal" onclick="del()">删除</a></td>
+					    </tr>
+					  </tbody>	 -->
+					 </table>
+					</div> 
+			</div>
+		</div>
+</body>
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+  <!-- 引入模块 -->
+  <script>
+		layui.use(['element','jquery','table'], function(){
+	  	var element = layui.element,
+	  	$=layui.jquery,
+	  	table = layui.table;		  	
+		})
+	</script>
+	 <!-- 设置全选框 -->
+	<script type="text/javascript">
+		var $ = layui.jquery;
+		layui.use('form', function(){
+	  	var form = layui.form;
+			//全选
+			form.on('checkbox(allChoose)', function(data){
+			    var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+			    child.each(function(index, item){
+			      item.checked = data.elem.checked;
+			    });
+			    form.render('checkbox');
+			});
+		});
+	</script>
+	<script>
+		function del(id) {
+			layer.open({
+				area: ['30%','35%'],
+				title: '删除',
+				content:'是否删除？',
+				btn: ['确定', '取消'],
+				yes: function(index){
+					layer.close(index);
+					console.log('确认');
+					// Ajax...
+				}
+			});
+		}
+	</script>
+	<script>
+  layui.use(['laypage', 'layer'], function(){
+  var layer = layui.layer;
+	});
+</script>
+
+</html>

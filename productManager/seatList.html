@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	</head>
+	<body>
+<div class="content_body">
+	<span class="layui-breadcrumb nav_loc" style="display: block;background: #f2f2f2;height: 35px;line-height: 35px">
+		<span>当前位置：</span>
+	  	<a><cite>餐位分类</cite></a>
+	</span>
+			<!-- 内容开始 -->
+	<div class="store_box" style="margin: 10px">
+		<div class="store_title" style="padding: 10px 0;border-bottom: 1px solid #797979">餐位分类</div>
+		<div class="table_box layui-clear" style="margin: 10px">
+			<table class="layui-table" id="test">
+			  <thead>
+			    <tr>
+		      	<th>序号</th>
+		      	<th>编号</th>
+		      	<th>名称</th>
+		      	<th>容纳人数</th>
+		      	<th>操作</th>
+			    </tr> 
+			  </thead>
+			  <tbody>
+			    <tr>
+		      	<td>1</td>
+		      	<td>A</td>
+		      	<td>卡座</td>
+		      	<td>1~2</td>
+		      	<td>
+		      		<a href="javascript:;" onclick="edit()">编辑</a>&nbsp;|&nbsp;
+		      		<a href="javascript:;" onclick="del()">删除</a></td>
+			    </tr>
+			    <tr>
+				    <td>2</td>
+				    <td>B</td>
+				    <td>小桌</td>
+				    <td>3~4</td>
+				    <td>
+				    	<a href="javascript:;" onclick="edit()">编辑</a>&nbsp;|&nbsp;
+				    	<a href="javascript:;" onclick="del()">删除</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+			<a class="layui-btn" href="javascript:;" onclick="add()">添加</a>
+			<a class="layui-btn layui-btn-normal" href="javascript:location.reload();">刷新</a>
+		</div>
+	</div>
+	<div class="change" id="edit_content" style="display: none;">
+		<form class="layui-form" style="margin-top: 10px">
+			
+			<div class="layui-form-item">
+    			<label class="layui-form-label">编号</label>
+    			<div class="layui-input-block">
+      			<input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="A" disabled="disabled">
+    			</div>
+    		</div>
+    		<div class="layui-form-item">
+    			<label class="layui-form-label">名称</label>
+    			<div class="layui-input-block">
+      				<input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="大桌">
+    			</div>
+    		</div>
+    		<div class="layui-form-item">
+    			<label class="layui-form-label">最少容纳</label>
+    			<div class="layui-input-block">
+      				<input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="3">
+    			</div>
+    		</div>
+    		<div class="layui-form-item">
+    			<label class="layui-form-label">最多容纳</label>
+    			<div class="layui-input-block">
+      				<input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="10"><br>	
+    			</div>
+    		</div>
+		</form>
+	</div>
+	<div class="change" id="add_content" style="display: none">
+		<form class="layui-form" style="margin-top: 10px">
+			<div class="layui-form-item">
+				<label class="layui-form-label">编号</label>
+				<div class="layui-input-block">
+	  			<input type="text"  class="layui-input" id="number" required  lay-verify="required" autocomplete="off" placeholder="请输入编号（如：A）">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">名称</label>
+				<div class="layui-input-block">
+	  				<input type="text"  class="layui-input" id="name" required  lay-verify="required" placeholder="请输入名称" autocomplete="off">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">容纳人数</label>
+				<div class="layui-input-block">
+	  				<input type="text"  class="layui-input" id="peopleNum2" required  lay-verify="required" placeholder="请输入容纳人数，格式为1-8" autocomplete="off">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+ <script src="../layui/layui.js"></script>
+  <!-- 引入模块 -->
+ <script>
+		layui.use(['form','table','element','jquery'], function(){
+			var form = layui.form
+			,table = layui.table;
+			var element = layui.element,$=layui.jquery;		
+		});
+	</script>
+	<script>
+	function edit() {
+	//编辑
+		layer.open({
+			type:1,
+			content:$('#edit_content'),
+			area: ['60%','70%'],
+			btn:'保存',
+			title:'编辑餐桌分类',
+			btnalign:'r',
+			yes: function(index){
+			layer.close(index);
+			console.log('保存');
+			// Ajax...
+		}
+		});
+	}
+	function add() {
+	//添加
+		layer.open({
+			type:1,
+			title:'添加餐桌分类',
+			btn:'保存',
+			btnalign:'r',
+			area:['60%','70%'],
+			content:$('#add_content'),
+			yes:function(index){
+				var peopleNum = $('#peopleNum2');
+				console.log(peopleNum.val());
+				var isRight = /^[0-9]-\d+$/;
+				if (isRight.test(peopleNum.val())) {
+					layer.close(index);
+					console.log(peopleNum.val());
+					console.log('保存-验证');
+				}else{
+					console.log(peopleNum.val());
+					alert('容纳人数格式输入不正确');
+					console.log('验证错误');
+					return false;
+				}
+			}
+		});
+	}
+	function del() {
+	//删除
+		layer.open({
+			title:'删除',
+			area:['30%','30%'],
+			btn:'删除',
+			btnalign:'r',
+			content:'确认删除吗？',
+			yes:function(index){
+				layer.close(index);
+			}
+		});
+	}
+	</script>
+	
+  <script>
+ 		$(function () {
+ 			
+ 		})
+ 	</script> 
+</html>

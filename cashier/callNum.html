@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../css/store.css" media="all">
+	<style type="text/css">
+		.select_modify{
+			color: #757575;
+			border: 1px solid #E6E6E6;
+			height: 36px;
+		}
+		.cal_table td{
+			width: 170px!important;
+		}
+		#cal_table2{
+			margin-top:0!important;
+		}
+		#cal_table{
+			margin-bottom:0!important;
+		}
+	</style>
+	</head>
+	<body>
+<div class="content_body">
+	<span class="layui-breadcrumb nav_loc" style="display: block;background: #f2f2f2;height: 35px;line-height: 35px">
+		<span>当前位置：</span>
+	  	<a><cite>叫号</cite></a>
+	</span>
+	<!-- 内容开始 -->
+	<div class="store_box" style="margin: 10px;text-align: center;" >
+		<form class="layui-form" style="margin-top: 10px">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<span>排队总数：</span><em id="queue_num">999</em>
+				</div>
+				<div class="layui-inline">
+					<span>已叫号：</span><em id="queue_value">999</em>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">叫号模式：</label>
+					<input type="radio" name="cn" value="独立叫号" title="独立叫号" checked>
+					<input type="radio" name="cn" value="合并叫号" title="合并叫号">
+		    </div>
+				<a class="layui-btn layui-btn-normal" href="javascript:;" onclick="add()">添加叫号</a>
+	    </div>
+    </form>
+	</div>
+	
+	<div class="table_box layui-clear" style="margin: 10px">
+		<table class="layui-table cal_table" id="cal_table" >
+		  <thead>
+		    <tr>
+		      	<th>序号</th>
+		      	<th>卡座</th>
+		      	<th>小桌</th>
+		      	<th>中桌</th>
+		      	<th>大桌</th>
+		      	<th>操作</th>
+		    </tr> 
+		  </thead>
+		  <tbody>
+		    <tr>
+		      	<td>叫号</td>
+		      	<td>暂无</td>
+		      	<td>2</td>
+		      	<td>2</td>
+		      	<td>A01</td>
+		      	<td style="width:190px!important;">
+			      	<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" onclick="call()">叫号</a> 
+			      	<a href="javascript:;" class="layui-btn layui-btn-sm" onclick="inPlace()">就位</a> 
+			      	<a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-sm" onclick="pass()">过号</a>
+		      	</td>
+		    </tr>
+		  </tbody>
+		</table>
+		<table class="layui-table cal_table" id="cal_table2" >
+		  <tbody>
+		    <tr>
+		      	<td>叫号</td>
+		      	<td>暂无</td>
+		      	<td>2</td>
+		      	<td>2</td>
+		      	<td>A01</td>
+		      	<td style="width:192px!important;"><a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" onclick="call()">叫号</a>&emsp;</td>
+		    </tr>
+		    <tr>
+			    <td>总号位</td>
+			    <td>暂无</td>
+			    <td>2</td>
+			    <td>2</td>
+			    <td>A02</td>
+		      <td style="width:192px!important;"><a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-sm" onclick="call()">叫号</a>&emsp;</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+  <!-- 当前叫号 -->
+	<div class="table_box layui-clear" style="margin: 20px 10px;">
+		<h2>当前叫号</h2>
+		<table class="layui-table cal_table" id="cal_table" >
+		  <thead>
+		    <tr>
+		      	<th>排号</th>
+		      	<th>桌号</th>
+		      	<th>桌子类型</th>
+		    </tr> 
+		  </thead>
+		  <tbody>
+		    <tr>
+		      	<td>B02</td>
+		      	<td>B402</td>
+		      	<td>中桌</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+	<!-- 添加弹窗 -->
+	<div class="change" id="add_content" style="display: none; margin: 20px;">
+		<div class="layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label">会员id</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" placeholder="请输入会员id">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">会员姓名</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" placeholder="请输入会员姓名">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">叫号模式</label>
+				<div class="layui-input-block">
+		      <input id="get" type="radio" name="cal" value="独立叫号" title="独立叫号" checked>
+		      <input id="send" type="radio" name="cal" value="合并叫号" title="合并叫号">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">餐位类型名称</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" placeholder="请输入餐位类型名称">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">排队号</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" placeholder="请输入排队号">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/colResizable-1.6.min.js"></script>
+<!-- 引入模块 -->
+<script>
+	layui.use(['form','table','element','jquery'], function(){
+		var form = layui.form
+		,table = layui.table
+		,element = layui.element,$=layui.jquery;		
+
+	});
+</script> 
+<script>
+	function add(){
+		layer.open({
+			type:1,
+			title:'添加排号',
+			btn:'添加',
+			btnAlign:'c',
+			area:['60%','80%'],
+			content:$('#add_content'),
+			yes:function(index){
+				layer.close(index);
+				console.log('保存');
+			}
+		});
+	}
+	function call(){
+		layer.open({
+			title:'叫号',
+			btn:['确定','取消'],
+			area:['35%','35%'],
+			content:'是否叫号？',
+			yes:function(index){
+				layer.close(index);
+				console.log('保存');
+			}
+		});
+	}
+	function inPlace(){
+		layer.open({
+			title:'就位',
+			btn:['确定','取消'],
+			area:['35%','35%'],
+			content:'确定已就位？',
+			yes:function(index){
+				layer.close(index);
+				console.log('保存');
+			}
+		});
+	}
+	function pass(){
+		layer.open({
+			title:'过号',
+			btn:['确定','取消'],
+			area:['35%','35%'],
+			content:'是否过号？',
+			yes:function(index){
+				layer.close(index);
+				console.log('保存');
+			}
+		});
+	}
+
+</script>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+%>  -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/productIndex.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/colResizable-1.6.min.js"></script>
+</head>
+  
+  <body>
+    <div id="see_content" style=" margin:10px">
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6">
+          <label class="layui-form-label">会员号</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="menberid" readonly="readonly">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6">
+          <label class="layui-form-label">会员ID</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="member_ID" readonly="readonly">
+          </div>
+        </div>
+      </div>
+       <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">真实姓名</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="r_name" readonly="readonly">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">昵称</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="nickname" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">手机号码</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="tel" readonly="readonly">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">通讯地址</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="address" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">头像</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="photo" readonly="readonly">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">消费次数</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="consume_time" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6">
+          <label class="layui-form-label">上次订餐时间</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="old_time" readonly="readonly">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">累计金额</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="su_money" readonly="readonly">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6">
+        <label class="layui-form-label">注册时间</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="reg_time" readonly="readonly">
+          </div>
+        </div>
+      </div><br>
+      <div class="layui-form-item" >
+        <div class="layui-input-block">
+          <input type="button" value="确定" onclick="modify()" class="layui-btn layui-btn-normal"/>
+            <input type="button" value="取消" onclick="quit()" class="layui-btn"/>
+        </div>
+      </div>
+  </div>
+  </body>
+   	<script src="../js/jquery-3.3.1.js"></script>
+  	<script src="../layui/layui.js"></script>
+  	<!-- 引入模块 -->
+  	<script>
+		layui.use(['form','table','element','jquery'], function(){
+		  	var form = layui.form
+		  	,table = layui.table
+		  	,element = layui.element
+		  	,$=layui.jquery;
+		});
+	</script>
+  <script>  
+      //修改
+    function modify(){          
+      var accountNum = $.trim($('#accountNum').val());
+      var passWord= $.trim($('#passWord').val());
+      var userName = $.trim($('#userName').val());
+      var phoneNum = $.trim($('#phoneNum').val());
+      var userRole = $.trim($('#userRole').val());
+      var email = $.trim($('#email').val());                            
+      if( accountNum == ""||passWord==""|| userName==""|| phoneNum=="" || userRole==""|| email==""){
+              alert("输入数据不能为空");
+               return;
+             }
+              $.ajax({
+                  url:'${PATH}/user/modifyUser.do',
+                  type: 'post',
+                  data: {'accountNum':accountNum,'passWord':passWord,'userName':userName,'phoneNum':phoneNum,'userRole':userRole,'email':email,'user_id':'${user.user_id}'},
+                  dataType: 'JSON',
+                  success: function(result){
+                      var field = result.state;
+                      if(field=='0'){
+                          alert(result.message);
+                          window.parent.location.reload();
+                          var index = parent.layer.getFrameIndex(window.name);
+                          parent.layer.close(index);
+                      }else{
+                          alert(result.message);
+                      return;
+                    }
+                  }
+              });         
+      }
+    function quit(){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+      }
+  </script> 
+</html>

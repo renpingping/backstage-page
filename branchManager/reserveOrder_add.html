@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+%>  -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../css/store.css" media="all">
+  <link rel="stylesheet" href="../css/donationOrder.css" media="all">
+</head>
+<body>
+    <!-- 添加预约订单 start -->
+    <div id="add_content" style="margin:20px;">
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+        <label class="layui-form-label">日期</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="add_cal" placeholder="请输入日期">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+        <label class="layui-form-label">餐点</label>
+          <div class="layui-input-block">
+            <select class="select_modify" name="meals" id="meals">
+              <option value="">--请选择餐点--</option>
+              <option value="0">10:00-14:00</option>
+              <option value="1">16:00-19:00</option>
+              <option value="1">19:00-23:00</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+        <label class="layui-form-label">到店时间</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="cometime" placeholder="请输入日期">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+        <label class="layui-form-label">可用餐位</label>
+          <div class="layui-input-block">
+            <select class="select_modify" name="canSeat" id="canSeat">
+              <option value="">--请选择餐位--</option>
+              <option value="0">1号</option>
+              <option value="1">2号</option>
+              <option value="2">3号</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+          <label class="layui-form-label">联系人</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="person" placeholder="请输入联系人">
+          </div>
+        </div>
+        <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+          <label class="layui-form-label">联系电话</label>
+          <div class="layui-input-block">
+            <input type="text" class="layui-input" id="phone" placeholder="请输入联系电话">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item" >
+        <div class="layui-input-block">
+          <input type="button" value="确定" onclick="modify()" class="layui-btn layui-btn-normal"/>
+          <input type="button" value="取消" onclick="quit()" class="layui-btn"/>
+        </div>
+      </div>
+    </div><!-- 添加预约订单 end -->
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../layui/layui.js"></script>
+<!-- 引入模块 -->
+<script>
+  layui.use(['element','form', 'element','laydate','jquery'], function(){
+    var element = layui.element,$=layui.jquery;
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var $ = layui.$;
+  });
+</script>
+<script>  
+  //修改
+  function modify(){          
+    var add_cal = $.trim($('#add_cal').val());
+    var meals= $.trim($('#meals').val());
+    var cometime = $.trim($('#cometime').val());
+    var canSeat = $.trim($('#canSeat').val());   
+    var person = $.trim($('#person').val());  
+    var phone = $.trim($('#phone').val());  
+    if( add_cal == ""||meals==""|| cometime==""|| canSeat=="" || person=="" || phone==""){
+      alert("输入数据不能为空");
+      return;
+    }
+    $.ajax({
+      url:'${PATH}/user/modifyUser.do',
+      type: 'post',
+      data: {'add_cal':add_cal,'meals':meals,'cometime':cometime,'canSeat':canSeat,'person':person,'phone':phone,'user_id':'${user.user_id}'},
+      dataType: 'JSON',
+      success: function(result){
+        var field = result.state;
+        if(field=='0'){
+          alert(result.message);
+          window.parent.location.reload();
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+        }else{
+          alert(result.message);
+          return;
+        }
+      }
+    });         
+  }
+  function quit(){
+    var index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
+  }
+</script> 
+</html>

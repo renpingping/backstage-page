@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../css/store.css" media="all">
+	<link rel="stylesheet" href="../css/donationOrder.css" media="all">
+		<style>
+			.layui-btn-xs{
+				margin-left: 0!important;
+				margin-top: 5px!important;
+			}
+		</style>
+</head>
+<body>
+	<div class="content_body">
+		<span class="layui-breadcrumb nav_loc">
+			<span>当前位置：</span>
+		  <a><cite>预约订单</cite></a>
+		</span>
+		<!-- 内容开始 -->
+		<div class="store_box">
+			<div class="dine_title">预约列表</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+				<label class="layui-form-label"></label>
+					<select class="select_modify" name="role" lay-verify="required">
+		        <option value="">请选择预约状态</option>
+		        <option value="0">在线预约</option>
+		        <option value="1">线下预约</option>
+	      	</select>
+	      </div>
+				<div class="layui-inline">
+					<select class="select_modify" name="role" lay-verify="required">
+		        <option value="">请选择餐点</option>
+		        <option value="0">10:00-14:00</option>
+		        <option value="1">16:00-19:00</option>
+		        <option value="1">19:00-23:00</option>
+	      	</select>
+	      </div>
+				<div class="layui-inline">
+					<select class="select_modify" name="role" lay-verify="required">
+		        <option value="">请选择预约日期</option>
+		        <option value="0">7月30日</option>
+		        <option value="1">7月31日</option>
+	      	</select>
+	      </div>
+	      <div class="layui-inline">
+					<input type="text" class="layui-input input_textToLong"  name="keyword" id="demoReload" placeholder="请输入订单号或桌号或姓名或电话号码">
+				</div>
+				<div class="layui-inline button_content">	
+					<button class="layui-btn-normal layui-btn" data-type="reload">搜索订单</button>
+				</div>
+			</div>
+			<!-- 搜索框 end -->
+			<hr>
+			<!-- 查看订单内容 start -->
+			<!-- <div class="layui-form"> -->
+				<!-- 订单表格 start -->
+				<div class="table_box">
+					<table class="layui-table resizable-table" id="resizable-table">
+					  <thead>
+					    <tr>
+					      <th>序号</th>
+					      <th>类型</th>
+					      <th>单号</th>
+					      <th>餐点</th>
+					      <th>餐位</th>
+					      <th>餐位费</th>
+					      <th>就餐时间</th>
+					      <th>联系人</th>
+					      <th>联系电话</th>
+					      <th>预约状态</th> 
+					      <th>已支付</th>
+					      <th>是否已点</th>
+					      <th>取消原因</th>
+					      <th>用户</th>
+					      <th>操作</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>1</td>
+					      <td>在线预约</td>
+					      <td>7491832659</td>
+					      <td>经北四路</td>
+					      <td>2号</td>
+					      <td>128</td>
+					      <td>2019/09/09</td>
+					      <td>秦一一</td>
+					      <td>16664668384</td>
+					      <td>在线</td>
+					      <td>否</td>
+					      <td>否</td>
+					      <td>赶不上</td>
+					      <td>243号</td>
+					      <td>
+							    <a href="javascript:del()" class="layui-btn layui-btn-danger layui-btn-xs" id="del">取消预约</a>
+						    </td>
+					    </tr>
+					    <tr>
+					      <td>1</td>
+					      <td>在线预约</td>
+					      <td>7491832659</td>
+					      <td>经北四路</td>
+					      <td>2号</td>
+					      <td>128</td>
+					      <td>2019/09/09</td>
+					      <td>秦一一</td>
+					      <td>16664668384</td>
+					      <td>在线</td>
+					      <td>否</td>
+					      <td>否</td>
+					      <td>赶不上</td>
+					      <td>243号</td>
+					      <td>
+							    <a href="javascript:del()" class="layui-btn layui-btn-danger layui-btn-xs" id="del">取消预约</a>
+						    </td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+				<!-- 操作按钮 -->
+				<div class="button_content">
+					<a href="javascript:add();" class="layui-btn layui-btn-sm" id="add">添加</a>					
+					<a class="layui-btn layui-btn-normal layui-btn-sm"  href="javascript:location.reload();">刷新</a>
+				</div>
+  		<!-- </div> -->
+		</div>
+	</div>
+</body>
+	
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+  <script src="../js/colResizable-1.6.min.js"></script>
+  <script>
+		layui.use('form', function(){
+	  	var form = layui.form;
+		});
+		layui.use(['element','jquery'], function(){
+	  	var element = layui.element,$=layui.jquery;
+		});
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#add_cal' //指定元素
+		  });
+		  laydate.render({
+		    elem: '#add_cometime' //指定元素
+		    ,type: 'time'         //时间选择器
+		  });
+		});
+	</script>
+	<script>
+	/*表格左右拉拽*/
+	$(function(){
+		$('#resizable-table th').mousedown(function (e) {
+        $(document).mousemove(function (e) {
+            if ($('#resizable-table th').width()<5) {
+            	console.log($('#resizable-table th').width());
+                var obj = $('#resizable-table th');
+                /*obj.css({"left":e.pageX - div_x, "top":e.pageY - div_y});*/
+                obj.width(5);
+            }
+        })
+    });
+	})
+	</script>
+	<script>
+		function del() {
+			layer.open({
+				area: ['30%','35%'],
+				title: '取消预约',
+				content:'是否取消预约？',
+				btn: ['确定', '取消'],
+				yes: function(index){
+					layer.close(index);
+					console.log('确认');
+					// Ajax...
+				}
+			});
+		}
+		function add() {
+			layer.open({
+				type: 2,
+				area: ['60%','70%'],
+				title: '新增线下预约',
+				content: 'reserveOrder_add.html'
+			});
+		}
+	</script>
+</html>

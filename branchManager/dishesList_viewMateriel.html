@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+%>  -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/productIndex.css">
+    <style type="text/css">
+    .layui-btn-xs{
+        margin-left: 0!important;
+        margin-top: 5px!important;
+      }
+      .title_dishes{
+        background-color: #f1f1f1;
+        font-weight: 600;
+        font-size: 17px;
+        text-indent: 20px;
+        overflow: hidden;
+      }
+      .dishes_box{
+        margin: 30px 30px 0;
+      }
+    </style>
+</head>
+<body>
+  <div class="layui-form">
+    <div id="viewMateriel_content" style="margin: 10px">
+      <table class="layui-table " id="" lay-size="sm">
+        <thead>
+          <tr>
+            <th><input type="checkbox"  id="allChoose" lay-skin="primary" lay-filter="allChoose" /></th>
+            <th>序号</th> 
+            <th>物料</th>
+            <th>单位</th>
+            <th>数量</th>
+            <th>操作</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" lay-skin="primary" /></td>
+            <td>1</td>
+            <td>在线预约</td>
+            <td>2号</td>
+            <td>10</td>
+            <td>
+              <a href="javascript:edit_materiel();" class="layui-btn layui-btn-normal layui-btn-xs edit_materiel" >编辑</a>
+              <a href="javascript:del_materiel();" class="layui-btn layui-btn-danger layui-btn-xs del_materiel">删除</a>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="checkbox" lay-skin="primary" /></td>
+            <td>2</td>
+            <td>在线预约</td>
+            <td>2号</td>
+            <td>10</td>
+            <td>
+              <a href="javascript:edit_materiel();" class="layui-btn layui-btn-normal layui-btn-xs edit_materiel" >编辑</a>
+              <a href="javascript:del_materiel();" class="layui-btn layui-btn-danger layui-btn-xs del_materiel">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- 操作按钮 -->
+      <div class="button_content">
+        <a class="layui-btn layui-btn-sm"  id="add_Materiel" href="javascript:add_Materiel()">添加</a>   
+        <a class="layui-btn layui-btn-danger layui-btn-sm"  id="delAll" href="javascript:delAll()">删除</a>          
+        <a class="layui-btn layui-btn-normal layui-btn-sm"  href="javascript:location.reload();">刷新</a>
+      </div>
+    </div>
+  </div>
+</body>
+ 	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../js/colResizable-1.6.min.js"></script>
+	<script src="../layui/layui.js"></script>
+  	<!-- 引入模块 -->
+  	 <!-- 设置全选框 -->
+  <script type="text/javascript">
+    layui.use(['form','jquery'], function(){
+      var form = layui.form;
+      var $ = layui.jquery;
+      //全选
+      form.on('checkbox(allChoose)', function(data){
+          var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+          child.each(function(index, item){
+            item.checked = data.elem.checked;
+          });
+          form.render('checkbox');
+      });
+    });
+  </script>
+  <script type="text/javascript">
+    //查看物料单-编辑
+    function edit_materiel(a){
+      layer.open({
+        type: 2,
+        area: ['50%','75%'],
+        title: '菜品列表/<span id="dishesName_materiel">【小牛排】</span>的物料单',
+        content: ('dishesList_viewMateriel_edit.html'),
+        yes: function(index){
+          layer.close(index);
+          console.log('保存');
+          // Ajax...
+        }
+      });
+    };
+    //查看物料单-添加
+    function add_Materiel(a){
+      layer.open({
+        type: 2,
+        area: ['50%','70%'],
+        title: '菜品列表/<span id="dishesName_materiel">【小牛排】</span>的物料单',
+        content: ('dishesList_viewMateriel_add.html'),
+        yes: function(index){
+          layer.close(index);
+          console.log('保存');
+          // Ajax...
+        }
+      });
+    };
+    function del_materiel(a){
+      layer.open({
+        area: ['35%','40%'],
+        title: '是否删除',
+        content: '确认删除吗？',
+        yes: function(index){
+          layer.close(index);
+          console.log('删除');
+          // Ajax...
+        }
+      });
+    };
+    function delAll(a){
+      layer.open({
+        area: ['35%','40%'],
+        title: '删除',
+        content:'确认删除吗？',
+        btn: ['确定', '取消'],
+        yes: function(index){
+          layer.close(index);
+          console.log('确认');
+          // Ajax...
+        }
+      });
+    };
+  </script>
+</html>

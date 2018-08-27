@@ -1,0 +1,23 @@
+.number_title{
+	margin-bottom: 20px;
+}
+.number_box{
+	margin: 10px;
+}
+.bton_content{
+	margin-top: 40px;
+	width: 100px;
+}
+.line{
+	width: 100%;
+	height: 1px;
+	background-color: lightgrey;
+	margin-top: -10px;
+}
+thead tr th{
+	text-align: center !important;
+}
+table{
+	text-align: center !important;
+	
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../css/store.css" media="all">
+	<link rel="stylesheet" href="../css/donationOrder.css" media="all">
+		<style>
+			.layui-btn-xs{
+				margin-left: 0!important;
+				margin-top: 5px!important;
+			}
+		</style>
+</head>
+<body>
+	<div class="content_body">
+		<span class="layui-breadcrumb nav_loc">
+			<span>当前位置：</span>
+		  <a><cite>历史订单</cite></a>
+		</span>
+		<!-- 内容开始 -->
+		<div class="store_box">
+			<div class="dine_title">订单列表</div>
+			<form>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<select class="select_modify" name="role" lay-verify="required">
+		        <option value="">请选择状态</option>
+		        <option value="0">待付款</option>
+		        <option value="1">已取消</option>
+		        <option value="2">已完成</option>
+	      	</select>
+	      </div>
+	      <div class="layui-inline">
+	      	<input type="text" class="layui-input" id="calStart" placeholder="请输入开始日期">
+				</div>
+	      <div class="layui-inline">
+	      	<input type="text" class="layui-input" id="calEnd" placeholder="请输入结束日期">
+				</div>
+	      <div class="layui-inline">
+					<input type="text" class="layui-input"  name="keyword" id="demoReload" placeholder="请输入订单号">
+				</div>
+				<div class="layui-inline button_content">	
+					<button class="layui-btn layui-btn-sm" data-type="reload">搜索</a></button>
+					<button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+					<button class="layui-btn layui-btn-normal layui-btn-sm">导出</button>
+				</div>
+			</div>
+			</form>
+			<!-- 搜索框 end -->
+			<!-- 查看订单内容 start -->
+			<div class="layui-form">
+				<div class="layui-inline">
+					<button class="layui-btn">全部<span class="layui-badge layui-bg-gray">6</span></button>
+				</div>
+				<div class="layui-inline to_be_paid">
+					待付款 <span class="layui-badge">9</span>
+				</div>
+				<button class="layui-btn layui-btn-normal">今日</button>
+
+				<hr>
+				<!-- 订单表格 start -->
+				<div class="table_box">
+					<table class="layui-table resizable-table" id="resizable-table" lay-filter="useruv">
+					  <thead>
+					    <tr>
+					      <th>序号</th>
+					      <th>餐位</th>
+					      <th>状态</th>
+					      <th>餐位费</th>
+					      <th>菜品总额</th>
+					      <th>总计</th>
+					      <th>优惠金额</th>
+					      <th>优惠政策</th>
+					      <th>退菜减免</th>
+					      <th>已支付</th> 
+					      <th>还需支付</th>
+					      <th>时间</th>
+					      <th>操作</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>1</td>
+					      <td>郑州</td>
+					      <td>陇海路</td>
+					      <td>1293832</td>
+					      <td>324</td>
+					      <td>12874432334</td>
+					      <td>郑州市陇海路</td>
+					      <td>0023</td>
+					      <td>在线</td>
+					      <td>0023</td>
+					      <td>在线</td>
+					      <td>1999/09/09</td>
+					      <td>
+						      <a href="javascript:detail()" class="layui-btn layui-btn-primary layui-btn-xs" id="detail">查看</a>
+							    <a href="javascript:edit()" class="layui-btn layui-btn-xs layui-btn-normal" id="edit">设置优惠政策</a>
+							    <a href="javascript:settle()" class="layui-btn layui-btn-warm layui-btn-xs" id="settle">结算</a>
+							    <a href="javascript:pending()" class="layui-btn layui-btn-xs" id="pending">挂单</a>
+							    <a href="javascript:del()" class="layui-btn layui-btn-danger layui-btn-xs" id="del">删除</a>
+						    </td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+  		</div>
+		</div>
+	</div>
+</body>
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+  <script src="../js/colResizable-1.6.min.js"></script>
+  <script>
+		layui.use('form', function(){
+	  	var form = layui.form;
+		});
+		layui.use(['element','jquery'], function(){
+	  	var element = layui.element,$=layui.jquery;
+		});
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#calStart' //指定元素
+		  });
+		  laydate.render({
+		    elem: '#calEnd' //指定元素
+		  });
+		});
+	</script>
+  	<script>
+  	/*表格左右拉拽*/
+  	$(function(){
+  		$('#resizable-table th').mousedown(function (e) {
+          $(document).mousemove(function (e) {
+              if ($('#resizable-table th').width()<5) {
+              	console.log($('#resizable-table th').width());
+                  var obj = $('#resizable-table th');
+                  /*obj.css({"left":e.pageX - div_x, "top":e.pageY - div_y});*/
+                  obj.width(5);
+              }
+          })
+      });
+  	})
+  	</script>
+  	<script>
+  		function detail() {
+  			layer.open({
+					type: 2,
+					area: ['80%','80%'],
+					title: '订单详情',
+					content: 'donationOrder_detail.html'
+				});
+  		}
+  		function edit() {
+  			layer.open({
+  					type: 2,
+  					area: ['30%','35%'],
+  					title: '优惠政策 <span>【20180203838】</span>',
+  					content: 'donationOrder_edit.html',
+  					yes: function(index){
+  						layer.close(index);
+  						console.log('保存');
+  						// Ajax...
+  					}
+  				});
+  		}
+  		function del() {
+  			layer.open({
+  					area: ['30%','35%'],
+  					title: '删除',
+  					content:'是否删除？',
+  					btn: ['确定', '取消'],
+  					yes: function(index){
+  						layer.close(index);
+  						console.log('确认');
+  						// Ajax...
+  					}
+  				});
+  		}
+  		function settle() {
+  			layer.open({
+  					area: ['30%','35%'],
+  					title: '支付确认',
+  					content:'总金额：<span>65</span>元，确认支付吗',
+  					btn: ['确定', '取消'],
+  					yes: function(index){
+  						layer.close(index);
+  						console.log('确认');
+  						// Ajax...
+  					}
+  				});
+  		}
+  		function pending() {
+  			layer.open({
+					area: ['30%','35%'],
+					title: '挂单',
+					content:'是否挂单？',
+					btn: ['确定', '取消'],
+					yes: function(index){
+						layer.close(index);
+						console.log('确认');
+						// Ajax...
+					}
+				});
+  		}
+  	</script>
+</html>

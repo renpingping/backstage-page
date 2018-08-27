@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+%>  -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/productIndex.css">
+    <script src="../layui/layui.js"></script>
+    <style type="text/css">
+      .hidediv{
+      display: none;
+    }
+    </style>
+    
+</head>
+  
+  <body>
+    <div id="add_content" class="layui-form" action="" style="margin: 20px;">
+    <div class="layui-form-item">
+      <label class="layui-form-label">类型</label>
+      <div class="layui-input-block">
+        <input id="coupon" type="radio" name="type" lay-filter="type" value="现金券" title="现金券" checked>
+        <input id="voucher" type="radio" name="type" lay-filter="type"  value="满减券" title="满减券">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">   
+        <label class="layui-form-label">使用场景</label>
+        <div class="layui-input-block" >
+          <select>
+            <option value="" selected="" disabled="">请选择</option>
+            <option value="0" >通用</option>
+            <option value="1">通用2</option>
+            <option value="2">通用3</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <label class="layui-form-label">面值</label>
+        <div class="layui-input-block">
+          <input id=" " type="text" name="mianzhi" required  lay-verify="required" placeholder="请输入面值" autocomplete="off" class="layui-input"/>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item hidediv" id="full">
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <div class="layui-form-label ">满多少</div>
+        <div class="layui-input-block">
+          <input id=" " type="text" name="mds" required  lay-verify="required" placeholder="请输入满多少金额" autocomplete="off" class="layui-input"/>
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <label class="layui-form-label">开始日期</label>
+        <div class="layui-input-block">
+          <input type="text" class="layui-input" id="test-laydate-start" placeholder="请输入开始日期" />
+        </div>
+      </div>
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <label class="layui-form-label">结束日期</label>
+        <div class="layui-input-block">
+          <input type="text" class="layui-input" id="test-laydate-end" placeholder="请输入结束日期" />
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <label class="layui-form-label">数量</label>
+        <div class="layui-input-block">
+          <input type="text" name="number" required  lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <label class="layui-form-label">用户ID</label>
+        <div class="layui-input-block">
+          <input type="text" name="userid" required  lay-verify="required" placeholder="输入即为赠送" autocomplete="off" class="layui-input">
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item"> 
+      <div class="layui-col-md6 layui-col-sm6  layui-col-xs6">
+        <label class="layui-form-label">全天可用</label>
+        <div class="layui-input-block">
+          <input name="all_day" value="是" title="是" type="radio" checked>
+          <input name="all_day" value="否" title="否" type="radio">
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item"> 
+      <label class="layui-form-label">备注</label>
+      <div class="layui-input-block">
+        <textarea class="layui-textarea" placeholder="请输入备注"></textarea>
+      </div>
+    </div>
+  
+    <div class="layui-form-item" >
+        <div class="layui-input-block">
+          <input type="button" value="确定" onclick="modify()" class="layui-btn layui-btn-normal"/>
+            <input type="button" value="取消" onclick="quit()" class="layui-btn"/>
+        </div>
+    </div>
+  </div>
+  </body>
+   	<script src="../js/jquery-3.3.1.js"></script>
+  	<script src="../layui/layui.js"></script>
+    <script src="../js/colResizable-1.6.min.js"></script>
+  	<!-- 引入模块 -->
+ 
+  <script>  
+      //修改
+    function modify(){          
+      var accountNum = $.trim($('#accountNum').val());
+      var passWord= $.trim($('#passWord').val());
+      var userName = $.trim($('#userName').val());
+      var phoneNum = $.trim($('#phoneNum').val());
+      var userRole = $.trim($('#userRole').val());
+      var email = $.trim($('#email').val());                            
+      if( accountNum == ""||passWord==""|| userName==""|| phoneNum=="" || userRole==""|| email==""){
+              alert("输入数据不能为空");
+               return;
+             }
+              $.ajax({
+                  url:'${PATH}/user/modifyUser.do',
+                  type: 'post',
+                  data: {'accountNum':accountNum,'passWord':passWord,'userName':userName,'phoneNum':phoneNum,'userRole':userRole,'email':email,'user_id':'${user.user_id}'},
+                  dataType: 'JSON',
+                  success: function(result){
+                      var field = result.state;
+                      if(field=='0'){
+                          alert(result.message);
+                          window.parent.location.reload();
+                          var index = parent.layer.getFrameIndex(window.name);
+                          parent.layer.close(index);
+                      }else{
+                          alert(result.message);
+                      return;
+                    }
+                  }
+              });         
+      }
+    function quit(){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+      }
+  </script>
+  <script>
+  layui.use(['form','laydate','table','element','jquery'], function(){
+    var form = layui.form,
+    table = layui.table,
+    laydate = layui.laydate,
+    element = layui.element,
+    $=layui.jquery;
+        
+    form.on('radio(type)',function(data){
+      console.log(data.value); //得到被选中的值
+      if(data.value =='现金券'){
+        $('#full').addClass('hidediv');
+      }else{
+        $('#full').removeClass('hidediv');
+      }
+    });
+    //开始日期
+    var insStart = laydate.render({
+      elem: '#test-laydate-start'
+      ,min: 0
+      ,done: function(value, date){
+        //更新结束日期的最小日期
+        insEnd.config.min = lay.extend({}, date, {
+          month: date.month - 1
+        });
+        //自动弹出结束日期的选择器
+       insEnd.config.elem[0].focus();
+      }
+    });
+    //结束日期
+    var insEnd = laydate.render({
+      elem: '#test-laydate-end'
+      ,min: 0
+      ,done: function(value, date){
+        //更新开始日期的最大日期
+        insStart.config.max = lay.extend({}, date, {
+          month: date.month - 1
+        });
+      }
+    });
+  });
+</script>
+</html>

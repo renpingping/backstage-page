@@ -1,0 +1,98 @@
+.table_title{
+	margin: 10px 30px;
+	font-size: 19px;
+	font-weight: 600;
+}
+.table_content{
+	margin: 20px;
+	/*background-color: #ffa;*/
+}
+.table_content ul li{
+	position: relative;
+	display: inline-block;
+	margin: 10px;
+	width: 20%;
+	height: 100px;
+	box-sizing: border-box;
+    border: 0.5px solid;
+	/*background-color: #f3f2f3;*/
+}
+.status{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 25px;
+	height: 25px;
+    padding: 2px 4px;
+    color: #fff;
+}
+.status_bg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-bottom: 40px solid transparent;
+	border-left: 40px solid red;
+}
+.table_num{
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    font-size: 19px;
+    color: red;
+}
+.process{
+	position: absolute;
+	bottom: 1px;
+    right: 1px;
+    font-size: 12px;
+}
+.table_num_eat{
+	position: absolute;
+	top: 10%;
+	left: 38%;
+	font-weight: 600;
+}
+.table_money{
+	position: absolute;
+    top: 32%;
+    left: 38%;
+    font-size: 19px;
+    color: red;
+}
+.process_eat{
+	text-align: right;
+}
+/*预约*/
+.status_reserve_bg{
+	border-left: 40px solid #c90;
+}
+.table_num_reserve{
+	color: #c90;
+}
+/*已付*/
+.status_paid_bg{
+	border-left: 40px solid #00f;
+}
+/*排队*/
+.status_queue_bg{
+	border-left: 40px solid #fc0;
+}
+.table_num_queue{
+	color: #fc0;
+}
+/*空闲*/
+.status_leisure_bg{
+	border-left: 40px solid #008000;
+}
+.table_num_leisure{
+	color: #008000;
+}
+.back{
+	display: inline-block;
+    position: absolute;
+    right: 15%;
+    top: 50px;
+    color: blue;
+}

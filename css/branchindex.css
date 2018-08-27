@@ -1,0 +1,88 @@
+.layui-row{
+	margin: 20px;
+}
+.layui-row h2{
+	margin: 10px;
+}
+.message{
+	border-radius: 10px;
+	border:1px solid #757575;
+	height: 90px
+}
+.dou{
+	background: #26bc9c url(../images/yuan.png)no-repeat 18px 18px;
+  background-position: 50% 50%;
+	height: 90px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px
+}
+.cen{
+  display: block;
+  margin: auto;
+  position: relative;
+  top:50%;
+}
+.order{
+	background: #e74737 url(../images/yuan.png)no-repeat 18px 18px; 
+  background-position: 50% 50%;
+}
+.order_num{
+	background: #f1c40f url(../images/yuan.png)no-repeat 18px 18px; 
+  background-position: 50% 50%;
+}
+.queue_num{
+	background: #9b59b6 url(../images/yuan.png)no-repeat 18px 18px; 
+  background-position: 50% 50%;
+}
+.data_bg{
+text-align: center;
+font-size: 18px;
+margin: 20px;
+	padding: 20px;
+	background: #fbfbfb;  
+	font-weight: 700;
+}
+.journal{
+	margin: 10px;
+	line-height: 20px;
+	font-size: 14px;
+}
+.journal p{
+	padding: 10px;
+	border-bottom: 1px solid #676767;
+}
+.log_box{
+	margin-top: 20px;
+	border:1px solid #757575;
+}
+.news_text{
+	text-align: center;
+	font-size: 16px;
+}
+.news_text_num{
+	margin: 20px;
+}
+.store_box{
+	text-align: center;
+}
+.user{
+	border:1px solid #757575;
+	font-size: 16px;
+}
+.user_table{
+	width: 100%;
+	margin: 10px;
+	line-height: 25px;
+}
+/*.data_pic{
+height: 450px;
+}*/
+.for{
+  width: 90%;
+  margin: auto;
+}
+.more{
+  display: block;
+  float: right;
+  margin:10px;
+}

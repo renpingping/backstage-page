@@ -1,0 +1,34 @@
+.cashier_box{
+	margin: 10px;
+}
+.cashier_title{
+	margin: 10px 20px;
+	font-size: 19px;
+	font-weight: 600;
+}
+.to_be_paid{
+	margin: 10px 10px;
+}
+.select_modify{
+	border: 1px solid #E6E6E6;
+    height: 36px;
+    width: 140px;
+    color: #757575;
+    margin-left: 20px;
+}
+thead tr th{
+	text-align: center !important;
+}
+td,th{
+    text-align: center !important;
+}
+tr td a{
+	background-color: white !important!;   
+            }
+a:hover{
+	color: blue !important;
+}
+#add_content{
+	display: none;
+}
+

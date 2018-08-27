@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+  	
+	<style type="text/css">
+		.layui-form-item{
+			width: 90%;
+			margin: auto;
+		}
+		.select_modify{
+			color: #757575;
+			border: 1px solid #E6E6E6;
+			height: 36px;
+		}
+		
+	</style>
+	</head>
+	<body>
+<div class="content_body">
+	
+		<span class="layui-breadcrumb nav_loc" style="display: block;background: #f2f2f2;height: 35px;line-height: 35px">
+			<span>当前位置：</span>
+		  	<a><cite>支付记录</cite></a>
+		</span>
+	
+			<!-- 内容开始 -->
+
+	<div class="store_box" style="margin: 10px">
+	<div class="store_title" style="padding: 10px 0;border-bottom: 1px solid #797979">支付记录</div>
+	
+	
+
+	<div class="store_box" style="margin: 10px">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+      			<label class="layui-form-label">开始时间</label>
+      			<div class="layui-input-inline">
+        			<input type="text" class="layui-input" id="test-laydate-start" placeholder="请选择开始时间">
+      			</div>
+        		<i class="layui-icon layui-icon-date" style="font-size: 30px;"></i>
+    		</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">结束时间</label>
+				<div class="layui-input-inline">
+        			<input type="text" class="layui-input" id="test-laydate-end" placeholder="请选择结束时间">
+      			</div>
+        		<i class="layui-icon layui-icon-date" style="font-size: 30px;"></i>
+    		</div>
+    		<div class="layui-inline">
+				<select class="select_modify" name="pic" lay-verify="required">
+		        	<option value="">支付类型</option>
+		        	<option value="0"></option>
+		        	<option value="1"></option>
+	      		</select>
+    		</div>
+			<div class="layui-inline">
+				<div class="layui-input-block">
+					<input type="text" name="order" placeholder="请输入订单号/支付ID" autocomplete="off" class="layui-input">
+				</div>
+
+      		</div>
+      		<div class="layui-inline button_content" style="margin-left: 0">
+      			 <button class="layui-btn layui-btn-normal">搜索</button>
+      			 
+      		</div>
+      	</div>
+	</div>
+	</div>
+	<div class="table_box layui-clear" style="margin: 10px">
+		<table class="layui-table" id="test" >
+		  <thead>
+		    <tr>
+		      	<th>序号</th>
+		      	<th>订单号</th>
+		      	<th>退款流水号</th>
+		      	<th>支付ID</th>
+		      	<th>平台平台</th>
+		      	<th>平台流水号</th>
+		      	<th>需退</th>
+		      	<th>实退</th>
+		      	<th>创建时间</th>
+		      	
+		      	
+		    </tr> 
+		  </thead>
+		  <tbody>
+		    <tr>
+		    
+		      	<td>1</td>
+		      	<td></td>
+		      	<td></td>
+		      	<td></td>
+		      	<td></td>
+		      	<td></td>
+		      	<td></td>
+		      	<td></td>
+		      	<td></td>
+		      	
+		      
+		    </tr>
+		    <tr>
+			    <td></td>
+			    <td>B</td>
+			    <td></td>
+			    <td></td>
+			    <td></td>
+			    <td></td>
+			    <td></td>
+			    <td></td>
+			    <td></td>
+			    
+		    </tr>
+		  </tbody>
+		</table>
+		
+	</div>
+
+</div>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+ <script src="../layui/layui.js"></script>
+ <script src="../js/colResizable-1.6.min.js"></script>
+  <!-- 引入模块 -->
+ <script>
+	layui.use(['form', 'table','element','jquery','laydate'], function(){
+		var form = layui.form
+		,table = layui.table
+		,laydate = layui.laydate,
+		 element = layui.element,$=layui.jquery;		
+
+
+  			//日期
+  		var insStart = laydate.render({
+      		elem: '#test-laydate-start'
+      		,eventElem:'#test-laydate-start1'
+      		,trigger:'click'
+      		,min: 0
+      		,done: function(value, date){
+        	//更新结束日期的最小日期
+        		insEnd.config.min = lay.extend({}, date, {
+          			month: date.month - 1
+        		});
+        
+        //自动弹出结束日期的选择器
+       			insEnd.config.elem[0].focus();
+      		}
+    	});
+    
+  		var insEnd = laydate.render({
+      		elem: '#test-laydate-end'
+      		,eventElem:'#test-laydate-end1'
+      		,trigger: 'click'
+      		,min: 0
+      		,done: function(value, date){
+        		//更新开始日期的最大日期
+        		insStart.config.max = lay.extend({}, date, {
+          			month: date.month - 1
+        		});
+      		}
+    	});
+	});
+	</script>
+	<!-- 设置全选框 -->
+	
+ <!--  	<script>
+ 			layui.use(['laypage','table'], function(){
+ 			  var laypage = layui.laypage;
+ 			  //执行一个laypage实例
+ 			  laypage.render({
+ 			    elem: 'test1'  //放置分页的容器
+ 			    ,count: 100    //从服务器获取的数据总数
+ 			    ,groups: 5     //显示分页个数
+ 			    ,limit: 5
+ 			    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+ 			    ,jump: function(obj){
+ 			      console.log(obj)
+ 			    }
+ 			  });
+ 			});
+ 		</script> -->
+</html>

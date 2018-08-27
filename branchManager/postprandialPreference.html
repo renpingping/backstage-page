@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>餐后优惠</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../css/store.css" media="all">
+	<link rel="stylesheet" type="text/css" href="../css/cashierManager.css" media="all">
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+  <script src="../js/colResizable-1.6.min.js"></script>
+</head>
+<body>
+	<div class="content_body">
+		<span class="layui-breadcrumb nav_loc">
+			<span>当前位置：</span>
+		  <!-- <a href="">门店管理</a> -->
+		  <a><cite>餐后优惠</cite></a>
+		</span>
+		<!-- 内容开始 -->
+		<div class="cashier_box">
+			<div style="font-size: 16px;">餐后优惠</div>
+			<!-- 餐后优惠start -->
+			<div class="layui-form ">
+				<!-- 表格 start -->
+				<div class="table_box">
+					<table class="layui-table resizable-table" id="resizable-table" >
+					  <thead>
+					    <tr>
+					      <th>序号</th>
+					      <th>类型</th>
+					      <th>优惠券</th>
+					      <th>满多少减（￥）</th>
+					      <th>是否累计</th>
+					      <th>描述</th>
+					      <th>默认</th>
+					      <th>有效日期</th>
+					      <th>创建时间</th>
+					      <th>操作</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>1</td>
+					      <td>抹零</td>
+					      <td></td>
+					      <td></td>
+					      <td></td>
+					      <td>满50减20</td>
+					      <td>是</td>
+					      <td></td>
+					      <td></td>
+					      <td>
+							<a class="edit" href="javascript:edit()">编辑</a> /
+							<a class="del"  href="javascript:del()">删除</a> /
+							<a class="setDefault" href="javascript:setDefault()">设为默认</a> /
+							<a class="cancel" href="javascript:cancel()">取消默认</a> 
+					     </td>
+					    </tr>
+					  </tbody>
+					</table>
+				<div class="layui-inline button_content">	
+					<button class="layui-btn  layui-btn-normal layui-btn-sm" id="add" onclick="add()">添加</button>
+					<a class="layui-btn  layui-btn-sm" href="javascript:location.reload();">刷新</a>
+				</div>
+				</div>
+  	</div><br />
+</body>
+<script src="../layui/layui.js"></script>
+   <script>
+  		layui.use('form', function(){
+		  	var form = layui.form;
+			});
+  		layui.use(['element','jquery'], function(){
+		  	var element = layui.element,$=layui.jquery;
+			});
+			layui.use('laydate', function(){
+			  var laydate = layui.laydate;
+			  //执行一个laydate实例
+			  laydate.render({
+			    elem: '#calStart' //指定元素
+			  });
+			  laydate.render({
+			    elem: '#calEnd' //指定元素
+			  });
+			});
+  	</script>
+  <script>
+  	/*表格左右拉拽*/
+  	$(function(){
+  		$('#resizable-table th').mousedown(function (e) {
+          $(document).mousemove(function (e) {
+              if ($('#resizable-table th').width()<5) {
+              	console.log($('#resizable-table th').width());
+                  var obj = $('#resizable-table th');
+                  /*obj.css({"left":e.pageX - div_x, "top":e.pageY - div_y});*/
+                  obj.width(5);
+              }
+          })
+      });
+  	})
+  </script>
+  <script>
+		function add() {
+			layer.open({
+				type: 2,
+				area: ['60%','70%'],
+				title: '新增优惠策略',
+				content: ('postprandialPreference_add.html'),
+				yes: function(index){
+						layer.close(index);
+						console.log('保存');
+						// Ajax...
+				     }
+			});
+		}
+		function edit() {
+			layer.open({
+				type: 2,
+				area: ['60%','70%'],
+				title: '编辑',
+				content: ('postprandialPreference_edit.html'),
+				yes: function(index){
+					layer.close(index);
+					console.log('保存');
+					// Ajax...
+				}
+			});
+		}
+	  function del(){
+	  	layer.open({
+				area: ['30%','35%'],
+				title: '删除',
+				content:'是否删除？',
+				btn: ['确定', '取消'],
+				yes: function(index){
+					layer.close(index);
+					console.log('确认');
+					// Ajax...
+				}
+			});
+	  }	
+	  function setDefault(){
+	  	layer.open({
+				area: ['30%','35%'],
+				title: '设为默认',
+				content:'是否设为默认？',
+				btn: ['确定', '取消'],
+				yes: function(index){
+					layer.close(index);
+					console.log('确认');
+					// Ajax...
+				}
+			});
+	  }	
+	  function cancel(){
+	  	layer.open({
+				area: ['30%','35%'],
+				title: '取消设为默认',
+				content:'是否取消设为默认？',
+				btn: ['确定', '取消'],
+				yes: function(index){
+					layer.close(index);
+					console.log('确认');
+					// Ajax...
+				}
+			});
+	  }	
+  </script>
+</html>

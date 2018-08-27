@@ -1,0 +1,22 @@
+.dine_title{
+	margin: 10px 30px;
+	font-size: 19px;
+	font-weight: 600;
+}
+.to_be_paid{
+	margin: 10px 10px;
+}
+.select_modify{
+	border: 1px solid #E6E6E6;
+    height: 36px;
+    color: #757575;
+}
+.input_textToLong{
+	width: 270px; 
+}
+.layui-btn a{
+	color: #fff;
+}
+.dish_total{
+	text-align: right;
+}

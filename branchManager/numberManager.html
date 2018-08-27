@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>排号管理</title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+  	<link rel="stylesheet" href="../css/numberManager.css" media="all">
+
+</head>
+<body>
+		<div class="content_body">
+			<span class="layui-breadcrumb nav_loc">
+				<span>当前位置：</span>
+			  <!-- <a href="">门店管理</a> -->
+			  <a><cite>排号管理</cite></a>
+			</span>
+			<!-- 内容开始 -->
+			<div class="number_box">
+				<div class="number_title" style="font-size: 18px;font-family: '黑体';">排队配置</div>
+				<div class="line"></div>
+				<form class="layui-form" action="">
+				  <div class="layui-form-item">
+				  <label class="layui-form-label" style="width: 150px;margin-left: 30%;">是否开启排队系统</label>
+					    <div class="layui-input-block">
+					      <input id="close" type="radio" name="isqueue" value="关闭" title="关闭">
+					      <input id="start" type="radio" name="isqueue" value="开启" title="开启" checked>
+					    </div>
+					    <div class="layui-input-block">
+				      <span>关闭后将清空排队记录</span>
+				    </div>
+					  </div>
+					  <div class="layui-form-item">
+				  <label class="layui-form-label" style="width: 150px;margin-left: 30%;">排队模式</label>
+					    <div class="layui-input-block">
+					      <input id="normal" type="radio" name="queue" value="正常" title="正常" checked>
+					      <input id="combine" type="radio" name="queue" value="合并" title="合并">
+					    </div>
+					    <button class="layui-btn bton_content" lay-submit lay-filter="formDemo">提交</button>
+					   </div>
+				 </form>
+				 <div class="number_title">排队情况</div>
+				 <div class="table_box" style="margin-left: 50px;">
+					<table class="layui-table resizable-table" id="resizable-table">
+					  <thead>
+					    <tr>
+					      <th>序号</th>
+					      <th>组</th>
+					      <th>领号</th>
+					      <th>叫号</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>1</td>
+					      <td>卡座</td>
+					      <td>A20</td>
+					      <td>A2</td>
+					    </tr>
+					    <tr>
+					      <td>2</td>
+					      <td>卡座</td>
+					      <td>A20</td>
+					      <td>A2</td>
+					    </tr>
+					  </tbody>
+					</table>
+					<div>
+					<a class="layui-btn layui-btn-normal" href="javascript:location.reload();">刷新</a> 	
+					</div>
+		       </div>
+	    </div>
+				  
+					   
+</body>
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+    <script>
+  		layui.use('form', function(){
+		  	var form = layui.form;
+			});
+  		layui.use(['element','jquery'], function(){
+		  	var element = layui.element,$=layui.jquery;
+		  	
+			});
+  	</script>
+</html>
+</html>

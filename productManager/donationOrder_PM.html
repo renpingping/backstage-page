@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../css/store.css" media="all">
+	<link rel="stylesheet" href="../css/donationOrder.css" media="all">
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+		<style>
+			.layui-btn-xs{
+				margin-left: 0!important;
+				margin-top: 5px!important;
+			}
+		</style>
+</head>
+<body>
+	<div class="content_body">
+		<span class="layui-breadcrumb nav_loc">
+			<span>当前位置：</span>
+		  <a><cite>堂食订单</cite></a>
+		</span>
+		<!-- 内容开始 -->
+		<div class="store_box">
+			<div class="dine_title">堂食订单</div>
+			<form>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<select class="select_modify" name="role" lay-verify="required">
+		        <option value="">请选择状态</option>
+		        <option value="0">待付款</option>
+		        <option value="1">已取消</option>
+		        <option value="2">已完成</option>
+	      	</select>
+	      </div>
+	      <div class="layui-inline">
+					<select class="select_modify" name="role" lay-verify="required">
+		        <option value="">请选择门店</option>
+		        <option value="0">金水区</option>
+		        <option value="1">管城回族区</option>
+		        <option value="2">二七区</option>
+	      	</select>
+	      </div>
+	      <div class="layui-inline">
+	      	<input type="text" class="layui-input" id="calEnd" placeholder="请输入结束日期">
+				</div>
+	      <div class="layui-inline">
+					<input type="text" class="layui-input"  name="keyword" id="demoReload" placeholder="请输入订单号">
+				</div>
+				<div class="layui-inline button_content">	
+					<button class="layui-btn layui-btn-sm" data-type="reload">搜索</a></button>
+					<button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+					<button class="layui-btn layui-btn-normal layui-btn-sm">导出</button>
+				</div>
+			</div>
+			</form>
+			<!-- 搜索框 end -->
+			<!-- 查看订单内容 start -->
+			<div class="layui-form">
+				<hr>
+				<!-- 订单表格 start -->
+				<div class="table_box">
+					<table class="layui-table resizable-table" id="resizable-table"  lay-filter="useruv">
+					  <thead>
+					    <tr>
+					      <th>序号</th>
+					      <th>门店</th>
+					      <th>单号</th>
+					      <th>餐位</th>
+					      <th>状态</th>
+					      <th>餐位费</th>
+					      <th>菜品总额</th>
+					      <th>总计</th>
+					      <th>优惠金额</th>
+					      <th>优惠政策</th>
+					      <th>已支付</th> 
+					      <th>餐后优惠</th>
+					      <th>时间</th>
+					      <th>用户</th>
+					      <th>操作</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>1</td>
+					      <td>郑州</td>
+					      <td>1293832</td>
+					      <td>陇海路</td>
+					      <td>324</td>
+					      <td>12874432334</td>
+					      <td>郑州市陇海路</td>
+					      <td>0023</td>
+					      <td>5折</td>
+					      <td>23</td>
+					      <td>34</td>
+					      <td>23</td>
+					      <td>2019/01/01</td>
+					      <td>秦一一</td>
+					      <td>
+						      <a class="layui-btn layui-btn-normal layui-btn-xs" href="javascript:detail()" id="detail">查看</a>
+						    </td>
+					    </tr>
+					    <tr>
+					      <td>2</td>
+					      <td>郑州</td>
+					      <td>1293832</td>
+					      <td>陇海路</td>
+					      <td>324</td>
+					      <td>12874432334</td>
+					      <td>郑州市陇海路</td>
+					      <td>0023</td>
+					      <td>5折</td>
+					      <td>23</td>
+					      <td>34</td>
+					      <td>23</td>
+					      <td>2019/01/01</td>
+					      <td>秦一一</td>
+					      <td>
+						      <a class="layui-btn layui-btn-normal layui-btn-xs" href="javascript:detail()" id="detail">查看</a>
+						    </td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+  		</div><!-- 查看订单内容 end -->
+		</div>
+	</div>
+</body>
+  <script src="../js/colResizable-1.6.min.js"></script>
+  <script>
+		layui.use('form', function(){
+	  	var form = layui.form;
+		});
+		layui.use(['element','jquery'], function(){
+	  	var element = layui.element,$=layui.jquery;
+		});
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  //执行一个laydate实例
+		  laydate.render({
+		    elem: '#calStart' //指定元素
+		  });
+		});
+	</script>
+  	<script>
+  	/*表格左右拉拽*/
+  	$(function(){
+  		$('#resizable-table th').mousedown(function (e) {
+          $(document).mousemove(function (e) {
+              if ($('#resizable-table th').width()<5) {
+              	console.log($('#resizable-table th').width());
+                  var obj = $('#resizable-table th');
+                  /*obj.css({"left":e.pageX - div_x, "top":e.pageY - div_y});*/
+                  obj.width(5);
+              }
+          })
+      });
+  	})
+  	</script>
+  	<script>
+  		function detail() {
+  				layer.open({
+  					type: 2,
+  					area: ['90%','90%'],
+  					title: '订单详情',
+  					content: ('donationOrder_PM_detail.html')
+  				});
+  			};  
+  	</script>
+</html>

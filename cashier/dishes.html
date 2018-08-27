@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  
+	
+	</head>
+	<body>
+<div class="content_body">
+	
+		<span class="layui-breadcrumb nav_loc" style="display: block;background: #f2f2f2;height: 35px;line-height: 35px">
+			<span>当前位置：</span>
+		  	<a><cite>菜品</cite></a>
+		</span>
+
+			<!-- 内容开始 -->
+
+	<div class="store_box" style="margin: 10px">
+		<form class="layui-form" style="margin: 10px">
+			<div class="layui-form-item">
+				<div class="layui-row">
+					<div class="layui-col-md4">
+						<div class="layui-input-block">
+							<input type="text" name="" placeholder="输入名称/编号" class="layui-input">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="table_box layui-clear" style="margin: 10px">
+			<table class="layui-table" id="test">
+			  <thead>
+			    <tr>
+			      	<th>序号</th>
+			      	<th>菜名</th>
+			      	<th>编号</th>
+			      	<th>类型</th>
+			      	<th>库存</th>
+			      	<th>价格</th>
+			      	<th>分类</th>
+			      	<th>菜品信息</th>
+			    </tr> 
+			  </thead>
+			  <tbody>
+			    <tr>
+			    
+			      	<td>1</td>
+			      	<td>A</td>
+			      	<td>卡座</td>
+			      	<td>1~2</td>
+			      	<td></td>
+			      	<td></td>
+			      	<td></td>
+			      	<td><a href="javascript:;" onclick="more()">详情</a></td>
+			    </tr>
+			    <tr>
+				    <td>2</td>
+				    <td>B</td>
+				    <td>小桌</td>
+				    <td>3~4</td>
+				    <td></td>
+				    <td></td>
+				    <td></td>
+					<td><a href="javascript:;" onclick="more()">详情</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+		
+		</div>
+
+
+		<div class="change" id="more_content" style="display: none">
+			<form class="layui-form" style="margin: 20px">
+				<div class="table_box layui-clear" style="margin: 10px">
+					<table class="layui-table">
+						<tbody style="border: none">
+							<tr style="border: none">
+								<td>菜品信息</td>
+								<td>制作原料</td>
+							</tr>
+						
+							<tr>
+								<td><label class="layui-form-label">菜名：</label>
+									<div class="layui-input-block">
+										<input type="text" name="" class="layui-input" value="牛排" disabled="disabled" style="border: none;">
+									</div>
+								</td>
+								<td>
+									<label class="layui-form-label">牛排：</label>
+									<div class="layui-input-block">
+										<input type="text" name="" class="layui-input" value="100g" disabled="disabled" style="text-align: right;padding-right: 10px;border: none;"">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 50%">
+									
+									<div class="layui-col-md6">
+										<label class="layui-form-label">类型：</label>
+										<div class="layui-input-block">
+											<input type="text" name="" class="layui-input" value="热菜" disabled="disabled" style="border: none;">
+										</div>
+									</div>
+									<div class="layui-col-md6">
+										<label class="layui-form-label">分类：</label>
+										<div class="layui-input-block">
+											<input type="text" name="" class="layui-input" value="热菜" disabled="disabled" style="border: none;">
+										</div>
+									</div>
+									
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<label class="layui-form-label">价格表</label>
+									
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<label class="layui-form-label">单价：</label>
+									<div class="layui-input-block">
+										<input type="text" name="" class="layui-input" value="38.00">
+									</div>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<label class="layui-form-label">优惠活动：</label>
+									<div class="layui-input-block">
+										<select class="select_modify"  lay-verify="required">
+				        					<option value="">优惠活动</option>
+				        					<option value="0"></option>
+				        					<option value="1"></option>
+			      						</select>
+									</div>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									<label class="layui-form-label">库存：</label>
+									<div class="layui-input-block">
+										<input type="text" name="" class="layui-input" value="999">
+									</div>
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+	    	</form>
+		</div>
+	</div>
+</div>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+ <script src="../layui/layui.js"></script>
+  <!-- 引入模块 -->
+ <script>
+	function more(){
+		layer.open({
+			type:1
+			,content:$('#more_content')
+			,title:'菜品详情'
+			,area:['60%','70%']
+			
+			,btn:['确认','取消']
+			,btnalign:'center',
+			yes: function(index){
+				layer.close(index);
+				console.log('保存');
+					
+			}
+		});
+	};
+
+
+
+	layui.use(['form','table','element','jquery'], function(){
+		var form = layui.form
+		,table = layui.table,
+		element = layui.element,$=layui.jquery;		
+
+		
+	});
+</script>
+	<!-- 设置全选框 -->
+	
+ <!--  	<script>
+ 			layui.use(['laypage','table'], function(){
+ 			  var laypage = layui.laypage;
+ 			  //执行一个laypage实例
+ 			  laypage.render({
+ 			    elem: 'test1'  //放置分页的容器
+ 			    ,count: 100    //从服务器获取的数据总数
+ 			    ,groups: 5     //显示分页个数
+ 			    ,limit: 5
+ 			    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+ 			    ,jump: function(obj){
+ 			      console.log(obj)
+ 			    }
+ 			  });
+ 			});
+ 		</script> -->
+</html>

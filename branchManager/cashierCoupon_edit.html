@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+  %>  -->
+  <html lang="en">
+  <head>
+   <meta charset="UTF-8">
+   <title></title>
+   <meta name="renderer" content="webkit">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+   <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+   <link rel="stylesheet" href="../css/store.css" media="all">
+   <link rel="stylesheet" type="text/css" href="../css/productIndex.css">
+   <script src="../layui/layui.js"></script>
+   <script src="../js/colResizable-1.6.min.js"></script>
+   <style type="text/css">
+    .hidediv{
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="edit_content" style="margin:20px">
+    <div class="layui-form-item">
+      <label class="layui-form-label">序号</label>
+      <div class="layui-input-block">
+        <input id="number" type="text" name="number" placeholder="请输入序号" class="layui-input"/>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">类型</label>
+      <div class="layui-input-block">
+        <input  id="cashType" type="text" name="cashType" placeholder="请输入类型" class="layui-input"/>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">参数</label>
+      <div class="layui-input-block">
+       <input id="parameter" type="text" name="parameter" placeholder="请输入参数" class="layui-input"/>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">排序号</label>
+      <div class="layui-input-block">
+       <input id="queueNum" type="text" name="queueNum" placeholder="请输入排序号" class="layui-input"/>
+     </div>
+    </div>
+    <div class="layui-form-item" >
+      <div class="layui-input-block">
+        <input type="button" value="确定" onclick="modify()" class="layui-btn layui-btn-normal"/>
+        <input type="button" value="取消" onclick="quit()" class="layui-btn"/>
+      </div>
+    </div>
+  </div> 
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../layui/layui.js"></script>
+<!-- 引入模块 -->
+<script>
+  layui.use(['element','form', 'element','laydate','jquery'], function(){
+    var element = layui.element,$=layui.jquery;
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var $ = layui.$;
+  });
+</script>
+<script>  
+  //修改
+  function modify(){          
+    var number = $.trim($('#number').val());
+    var mold= $.trim($('#mold').val());
+    var queueNum = $.trim($('#queueNum').val());                          
+    if( number == ""||mold==""|| queueNum==""){
+      alert("输入数据不能为空");
+      return;
+    }
+    $.ajax({
+      url:'${PATH}/user/modifyUser.do',
+      type: 'post',
+      data: {'number':number,'mold':mold,'queueNum':queueNum,'user_id':'${user.user_id}'},
+      dataType: 'JSON',
+      success: function(result){
+        var field = result.state;
+        if(field=='0'){
+          alert(result.message);
+          window.parent.location.reload();
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+        }else{
+          alert(result.message);
+          return;
+        }
+      }
+    });         
+  }
+  function quit(){
+    var index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
+  }
+</script> 
+</html>

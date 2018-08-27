@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+	</head>
+	<body>
+<div class="content_body">
+	<span class="layui-breadcrumb nav_loc">
+		<span>当前位置：</span>
+	  	<a><cite>餐位分类</cite></a>
+	</span>
+			<!-- 内容开始 -->
+	<div class="store_box">
+		<div class="store_title">餐位分类</div>
+		<div class="table_box layui-clear">
+			<table class="layui-table" id="test">
+			  <thead>
+			    <tr>
+		      	<th>序号</th>
+		      	<th>编号</th>
+		      	<th>名称</th>
+		      	<th>容纳人数</th>
+		      	<th>操作</th>
+			    </tr> 
+			  </thead>
+			  <tbody>
+			    <tr>
+		      	<td>1</td>
+		      	<td>A</td>
+		      	<td>卡座</td>
+		      	<td>1~2</td>
+		      	<td>
+		      		<a href="javascript:edit();">编辑</a>&nbsp;|&nbsp;
+		      		<a href="javascript:del();">删除</a></td>
+			    </tr>
+			    <tr>
+				    <td>2</td>
+				    <td>B</td>
+				    <td>小桌</td>
+				    <td>3~4</td>
+				    <td>
+				    	<a href="javascript:edit();">编辑</a>&nbsp;|&nbsp;
+				    	<a href="javascript:del();">删除</a></td>
+			    </tr>
+			  </tbody>
+			</table>
+			<a class="layui-btn" href="javascript:add();">添加</a>
+			<a class="layui-btn layui-btn-normal" href="javascript:location.reload();">刷新</a>
+		</div>
+	</div>
+</div>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+ <script src="../layui/layui.js"></script>
+  <!-- 引入模块 -->
+ <script>
+		layui.use(['form','table','element','jquery'], function(){
+			var form = layui.form
+			,table = layui.table;
+			var element = layui.element,$=layui.jquery;		
+		});
+	</script>
+	<script>
+	function edit() {
+	//编辑
+		layer.open({
+			type:2,
+			content:"seatList_edit.html",
+			area: ['60%','70%'],
+			title:'编辑餐桌分类'
+		});
+	}
+	function add() {
+	//添加
+		layer.open({
+			type:2,
+			title:'添加餐桌分类',
+			area:['60%','70%'],
+			content:"seatList_add.html"
+		});
+	}
+	function del() {
+	//删除
+		layer.open({
+			title:'删除',
+			area:['30%','30%'],
+			btn:'删除',
+			btnalign:'r',
+			content:'确认删除吗？',
+			yes:function(index){
+				layer.close(index);
+			}
+		});
+	}
+	</script>
+</html>

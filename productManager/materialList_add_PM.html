@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+%>  -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/productIndex.css">
+    <script src="../layui/layui.js"></script>
+    <script src="../js/colResizable-1.6.min.js"></script>
+</head>
+  
+  <body>
+    <div id="add_content" style="margin:20px">
+      <div class="layui-form">
+        <div class="layui-form-item">
+          <label class="layui-form-label">分类</label>
+          <div class="layui-input-block">
+            <select class="select_modify" name="role" lay-verify="required">
+              <option value="">请选择分类</option>
+              <option value="0">在线预约</option>
+              <option value="1">线下预约</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">名称</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入名称" class="layui-input" id="stockNum">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label class="layui-form-label">单位</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入单位" class="layui-input" id="stockNum">
+          </div>
+        </div>
+        <div class="layui-form-item" >
+        <div class="layui-input-block">
+          <input type="button" value="确定" onclick="modify()" class="layui-btn layui-btn-normal"/>
+            <input type="button" value="取消" onclick="quit()" class="layui-btn"/>
+        </div>
+      </div>
+      </div>
+    </div>
+  </body>
+   	<script src="../js/jquery-3.3.1.js"></script>
+  	<script src="../layui/layui.js"></script>
+  	<!-- 引入模块 -->
+  	<script>
+		layui.use(['form','table','element','jquery'], function(){
+		  	var form = layui.form
+		  	,table = layui.table
+		  	,element = layui.element
+		  	,$=layui.jquery;
+		});
+	</script>
+  <script>  
+      //修改
+    function modify(){          
+      var accountNum = $.trim($('#accountNum').val());
+      var passWord= $.trim($('#passWord').val());
+      var userName = $.trim($('#userName').val());
+      var phoneNum = $.trim($('#phoneNum').val());
+      var userRole = $.trim($('#userRole').val());
+      var email = $.trim($('#email').val());                            
+      if( accountNum == ""||passWord==""|| userName==""|| phoneNum=="" || userRole==""|| email==""){
+              alert("输入数据不能为空");
+               return;
+             }
+              $.ajax({
+                  url:'${PATH}/user/modifyUser.do',
+                  type: 'post',
+                  data: {'accountNum':accountNum,'passWord':passWord,'userName':userName,'phoneNum':phoneNum,'userRole':userRole,'email':email,'user_id':'${user.user_id}'},
+                  dataType: 'JSON',
+                  success: function(result){
+                      var field = result.state;
+                      if(field=='0'){
+                          alert(result.message);
+                          window.parent.location.reload();
+                          var index = parent.layer.getFrameIndex(window.name);
+                          parent.layer.close(index);
+                      }else{
+                          alert(result.message);
+                      return;
+                    }
+                  }
+              });         
+      }
+    function quit(){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+      }
+  </script> 
+</html>

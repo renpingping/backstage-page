@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>桔子餐饮</title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="css/index_form.css" media="all">
+  	<style>
+		   ol li a{
+		    background-color: #476966!important;
+		  }
+	    .three_this{
+	      background-color: #8383ff!important;
+	    }
+	    #meau_four,#meau_four li a{
+	    	background-color: #041884!important;
+	    }
+	    html{overflow:hidden;}
+  </style>
+</head>
+<body>
+<div class="layui-body" style="overflow: hidden;">
+	<div class="layui-header" style="position: fixed;top: 0;left: 0;width: 100%;">
+		<ul class="layui-nav head ">
+			<li class="layui-nav-item head_logo">
+    			<img src="images/logo_1.png" alt=""><span class="head_name">桔子点餐</span>
+			</li>
+			<li class="layui-nav-item">
+				<a href="#">
+					<i class="layui-icon layui-icon-notice head_notice"></i>
+					<span class="layui-badge head_notice_meg">9</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="layui-nav layui-layout-right head">
+			<li class="layui-nav-item">
+    		<input type="text" placeholder="搜索导航">
+			</li>
+			<li class="layui-nav-item">
+			  <a href="javascript:;"><img src="http://t.cn/RCzsdCq" class="layui-nav-img">张三<span class="layui-nav-more"></span></a>
+			  <dl class="layui-nav-child">
+		      <dd><a href="javascript:;"><i class="layui-icon layui-icon-set"></i> 个人设置</a></dd>
+		      <dd><a href="javascript:;"><i class="layui-icon layui-icon-notice"></i> 通知</a></dd>
+		      <hr>
+		      <dd><a href="javascript:;"><i class="layui-icon layui-icon-close-fill"></i> 退出</a></dd>
+		    </dl>
+		  	</li>
+			</ul>
+		</div>
+		<!-- 侧边菜单 -->
+		<div class="layui-side " style="top: 64px; overflow-x: visible; overflow-y: auto; background: #282b33;">
+			<ul class="layui-nav layui-nav-tree" lay-filter="test" style="width: 183px">
+				<!-- 收银员 -->
+			  <li class="layui-nav-item layui-nav-itemed">
+			    <a href="javascript:;">收银员</a>
+			    <dl class="layui-nav-child">
+			      <dd><a href="cashier/cash.html" target="test">收银</a></dd>
+			      <dd><a href="cashier/Order.html" target="test">订单</a></dd>
+			      <dd><a href="cashier/subscribe.html" target="test">预约</a></dd>
+			      <dd><a href="cashier/callNum.html" target="test">叫号</a></dd>
+			      <dd><a href="cashier/dishes.html" target="test">菜品</a></dd>
+			    </dl>
+			  </li>
+			  <!-- 分店管理员 -->
+			  <li class="layui-nav-item layui-nav-itemed">
+			    <a href="javascript:;">分店管理员</a>
+			    <dl class="layui-nav-child">
+			    	<dd><a href="branchManager/branchIndex.html" target="test">首页</a></dd>
+			      <dd><a href="javascript:;" id="menu_three_md">门店管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/store_BM.html" target="test">门店设置</a></li>
+					      <li><a href="branchManager/serviceTime.html" target="test">服务时间</a></li>
+					      <li><a href="branchManager/numberManager.html" target="test">排号管理</a></li>
+					      <li><a href="branchManager/cashierManager.html" target="test">收银员管理</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_dd">订单管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/reserveOrder.html" target="test">预约订单</a></li>
+					      <li><a href="branchManager/donationOrder.html" target="test">堂食订单</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_cp">菜品管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/dishesClass.html" target="test">菜品分类</a></li>
+					      <li><a href="branchManager/dishesList.html" target="test">菜品列表</a></li>
+					      <li><a href="branchManager/materialList.html" target="test">物料列表</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_cw">餐位管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/seatList.html" target="test">餐位分类</a></li>
+					      <li><a href="branchManager/seatManager.html" target="test">餐位管理</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_hy">会员管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/memberManager.html" target="test">会员管理</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_cx">促销活动</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/couponActivities.html" target="test">优惠券活动</a></li>
+					      <li><a href="branchManager/couponManager.html" target="test">优惠券管理</a></li>
+					      <li><a href="branchManager/postprandialPreference.html" target="test">餐后优惠</a></li>
+					      <li><a href="branchManager/cashierCoupon.html" target="test">收银优惠</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_bb">报表管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="branchManager/parishfoodForm.html" target="test">堂食报表</a></li>
+					      <li><a href="branchManager/dishesSale.html" target="test">菜品销售</a></li>
+					      <li><a href="branchManager/materCon.html" target="test">物料消耗</a></li>
+					      <li><a href="branchManager/payRecord.html" target="test">支付记录</a></li>
+					      <li><a href="branchManager/refundRecord.html" target="test">退款记录</a></li>
+			      	</ol>
+			      </dd>
+			    </dl>
+			  </li>
+			  <!-- 商户管理员 -->
+			  <li class="layui-nav-item layui-nav-itemed">
+			    <a href="javascript:;">商户管理员</a>
+			    <dl class="layui-nav-child">
+			    	<dd><a href="productManager/productIndex.html" target="test">首页</a></dd>
+			      <dd><a href="javascript:;" id="menu_three_sh">商户管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/productMessage.html" target="test">商户信息</a></li>
+					      <li><a href="productManager/store.html" target="test" id="store">门店管理</a>
+									<ol class="layui-nav-child" id="meau_four" style="display: none;">
+										<li><a href="productManager/store_add.html" target="test">门店管理-新增门店</a></li>
+										<li><a href="productManager/store_modify.html" target="test">门店管理-信息编辑</a></li>
+									</ol>
+					      </li>
+					      <li><a href="javascript:;">支付管理</a></li>
+					      <li><a href="productManager/staffList.html" target="test">管理员设置</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_sh_cp">菜品管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/dishesLabel.html" target="test">菜品标签</a></li>
+					      <li><a href="productManager/dishesManage.html" target="test">菜品库管理</a></li>
+								<li><a href="productManager/materialClass.html" target="test">物料分类</a></li>
+					      <li><a href="productManager/materialList_PM.html" target="test">物料列表</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_sh_dd">订单管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/donationOrder_PM.html" target="test">堂食订单</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_sh_bb">报表管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/dishesSS.html" target="test">菜品销售</a></li>
+					      <li><a href="productManager/materConS.html" target="test">物料消耗</a></li>
+					      <li><a href="productManager/payRecord.html" target="test">支付记录</a></li>
+					      <li><a href="productManager/refundRecord.html" target="test">退款记录</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_sh_nr">内容管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/carouselPicture.html" target="test">轮播图片</a></li>
+					      <li><a href="productManager/assessManager.html" target="test">评论管理</a></li>
+					      <li><a href="productManager/feedBack.html" target="test">用户反馈</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_sh_yh">优惠管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/couponActivities.html" target="test">优惠券活动</a></li>
+					      <li><a href="productManager/couponManager.html" target="test">优惠券管理</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="javascript:;" id="menu_three_sh_hy">会员管理</a>
+			      	<ol class="layui-nav-child" style="display: none;">
+								<li><a href="productManager/OnlineUserManager.html" target="test">线上用户</a></li>
+					      <li><a href="productManager/memberManager.html" target="test">会员管理</a></li>
+			      	</ol>
+			      </dd>
+			      <dd><a href="productManager/setup.html" target="test">设置</a></dd>
+			    </dl>
+			  </li>
+			</ul>
+		</div>
+		<!-- 主体内容 -->
+		<div class="layui-body content_body" scrolling='no'>
+			<iframe id="test" name="test" frameborder="0" scrolling="auto"></iframe>
+		</div>
+
+		<div class="layui-footer">
+	  <!-- 底部固定区域 -->
+	    © layui.com - 底部固定区域
+  	</div>
+	</div>
+</body>
+	<script src="js/jquery-3.3.1.js"></script>
+  <script src="layui/layui.js"></script>
+  <script>
+  	$(function() {
+  		$('#store').on('click',function() {
+  			$('#meau_four').toggle().css('style','block');
+  		})
+  	})
+  </script>
+  <script>
+  		layui.use('form', function(){
+		  	var form = layui.form;
+			});
+  		layui.use(['element','jquery'], function(){
+		  	var element = layui.element,$=layui.jquery;
+		  	/*分店管理员三级导航*/
+		  	$("#menu_three_md").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_dd").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_cp").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_cw").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_hy").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_cx").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_bb").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_xw").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  /*商户三级导航*/
+			  $("#menu_three_sh").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_sh_hy").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_sh_yh").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_sh_nr").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_sh_bb").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_sh_dd").on("click",function(){
+			     $(this).next().toggle();
+			  })
+			  $("#menu_three_sh_cp").on("click",function(){
+			     $(this).next().toggle();
+			  })
+
+		    $("ol").on("click","li a",function(){
+		      $.each($(this).parent().siblings(),function(i,e){
+		          $(e).find("a").removeClass('three_this')
+		      });
+		        $(this).addClass('three_this');                            // 添加当前元素的样式
+		    })
+			});
+  	</script>
+  <script type="text/javascript">adjustIfrHt();</script>
+</html>

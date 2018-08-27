@@ -1,0 +1,75 @@
+ html,
+ body,
+ .content_body{
+ 	height: 100%;
+ }
+ .store_box{
+ 	margin: 0;
+	height: 93%;
+	overflow: auto;
+} 
+.detail_content{
+	float: left;
+	width: 70%;
+	height: 70%;
+	overflow-y: scroll;
+}
+.table_status{
+	height: 70%;
+	overflow: hidden;
+}
+.table_status table td{
+	position: static;    /* 兼容ie不显示边框 */
+	padding: 5px;
+	border: 2px solid #fff;
+	background-color: #eeebf7;
+}
+.operate{
+	float: left;
+	width: 70%;
+	height: auto;
+	overflow: hidden;
+}
+.operate .layui-input-block{
+	margin-left: 10px;
+}
+.operate_left{
+	float: left;
+}
+.operate_right{
+	margin-left: 400px;
+
+} 
+.operate_right .layui-btn-container button{
+	width: 80px;
+}
+.modify_bottom{
+	margin-bottom: 10px;
+}
+.all{
+	height: 30%;
+	/*background-color: #999;*/
+}
+.all .all_btn{
+	margin-left: 1%;
+	width: 150px;
+	margin-top: 1%;
+}
+.modify_table{
+	margin-top: 0px;
+}
+.select_modify{
+	color: #757575;
+	border: 1px solid #E6E6E6;
+	height: 36px;
+}
+.text_right{
+	float: right;
+	text-align: right;
+}
+.dishes_modify{
+	text-indent: 2rem;
+}
+.operateBtn{
+	margin-left: 18%;
+}

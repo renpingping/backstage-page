@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>优惠券管理</title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+  	
+	<style type="text/css">
+		.select_modify{
+			color: #757575;
+			border: 1px solid #E6E6E6;
+			height: 36px;
+		}
+		.hidediv{
+			display: none;
+		}
+		.table_box .layui-table th, .table_box .layui-table td{
+			padding: 15px 5px;
+		}
+	</style>
+	</head>
+	<body>
+<div class="content_body">
+	<span class="layui-breadcrumb nav_loc" style="display: block;background: #f2f2f2;height: 35px;line-height: 35px">
+		<span>当前位置：</span>
+	  	<a><cite>优惠券管理</cite></a>
+	</span>
+	<!-- 内容开始 -->
+	<div class="store_box" style="margin: 10px">
+		<div class="store_title" style="padding: 10px 0;border-bottom: 1px solid #797979">优惠券管理</div>
+		<div class="table_box layui-clear" style="margin: 10px">
+			<table class="layui-table" id="test" >
+			  <thead>
+			    <tr>
+			      	<th>序号</th>
+			      	<th>使用场景</th>
+			      	<th>类型</th>
+			      	<th>面值（￥）</th>
+			      	<th>满多少减（￥）</th>
+			      	<th>有效日期</th>
+			      	<th>有效时间</th>
+			      	<th>未绑定总数/总数</th>
+			      	<th>描述</th>
+			      	<th>创建时间</th>
+			      	<th>操作</th>
+			    </tr> 
+			  </thead>
+			  <tbody>
+			    <tr>
+			      	<td>1</td>
+			      	<td>通用</td>
+			      	<td>满减券</td>
+			      	<td>20</td>
+			      	<td>50</td>
+			      	<td>2018/06/06-2018/07/06</td>
+			      	<td>全天可用</td>
+			      	<td>3/11</td>
+			      	<td>满50减20</td>
+			      	<td>2018-06-03 09：12：34</td>
+			      	<td>
+			      		<a href="javascript:edit();"  class="layui-btn layui-btn-normal layui-btn-xs ">编辑</a>
+			      		<a href="javascript:;"  class="layui-btn layui-btn-danger layui-btn-xs " onclick="del()">删除</a>
+			      		<!-- <a href="couponDetails.html" class="layui-btn layui-btn-xs layui-btn-warm">查看明细</a> -->
+			      	</td>
+			    </tr>
+			  </tbody>
+			</table>
+			<a class="layui-btn" href="javascript:add();" id="add" >添加</a>
+			<a class="layui-btn layui-btn-normal" href="javascript:location.reload();">刷新</a>
+		</div>
+	</div>
+</body>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/colResizable-1.6.min.js"></script>
+<script>
+	function edit(){
+		layer.open({
+			type:2,
+			content:('couponManager_edit.html'),
+			area: ['60%','70%'],
+			title:'编辑优惠券信息',
+			yes: function(index){
+			layer.close(index);
+			console.log('保存');
+			// Ajax...
+		}
+		});
+	}
+	//删除
+	function del(){
+		layer.open({
+			title:'删除',
+			area:['30%','30%'],
+			btn:['确认','取消'],
+			btnalign:'r',
+			content:'确认删除吗？',
+			yes:function(index){
+				layer.close(index);
+			}
+		});
+	}
+	//添加
+	function add(){
+		layer.open({
+			type:2,
+			title:'新增优惠券活动',
+			area:['80%','80%'],
+			content:('couponManager_add1.html'),
+			yes:function(index){
+				layer.close(index);
+				console.log('保存');
+			}
+		});
+	}
+</script>
+<script>
+	layui.use(['form','laydate','table','element','jquery'], function(){
+		var form = layui.form,
+		table = layui.table,
+		laydate = layui.laydate,
+    element = layui.element,
+    $=layui.jquery;
+        
+		form.on('radio(type)',function(data){
+			console.log(data.value); //得到被选中的值
+			if(data.value =='现金券'){
+				$('#full').addClass('hidediv');
+			}else{
+				$('#full').removeClass('hidediv');
+			}
+		});
+		//开始日期
+    var insStart = laydate.render({
+      elem: '#test-laydate-start'
+      ,min: 0
+      ,done: function(value, date){
+        //更新结束日期的最小日期
+        insEnd.config.min = lay.extend({}, date, {
+          month: date.month - 1
+        });
+        //自动弹出结束日期的选择器
+       insEnd.config.elem[0].focus();
+      }
+    });
+    //结束日期
+    var insEnd = laydate.render({
+      elem: '#test-laydate-end'
+      ,min: 0
+      ,done: function(value, date){
+        //更新开始日期的最大日期
+        insStart.config.max = lay.extend({}, date, {
+          month: date.month - 1
+        });
+      }
+    });
+	});
+</script>
+</html>

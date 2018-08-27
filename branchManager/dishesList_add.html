@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<%
+	pageContext.setAttribute("PATH", request.getContextPath());
+%>  -->
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+  	<link rel="stylesheet" href="../css/store.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../css/productIndex.css">
+    <style type="text/css">
+      .title_dishes{
+        background-color: #f1f1f1;
+        font-weight: 600;
+        font-size: 17px;
+        text-indent: 20px;
+        overflow: hidden;
+      }
+      .dishes_box{
+        margin: 30px 30px 0;
+      }
+      .hidediv{
+        display: none;
+      }
+    </style>
+</head>
+  <body>
+    <div id="add_content" >
+      <div class="title_dishes">
+        <div class="layui-form-mid"><span id="dishesName_title">新增菜品数据</span></div>
+      </div>
+      <div class="dishes_box layui-form">
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="dishesName" placeholder="请输入名称">
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">分类</label>
+            <div class="layui-input-block">
+              <select class="select_modify" name="type" id="type">
+                <option value="">请选择分类</option>
+                <option value="0">在线预约</option>
+                <option value="1">线下预约</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">点菜码</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="OrderCode" placeholder="若不填则系统生成(规则：1000~9999)">
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">打印</label>
+            <div class="layui-input-block">
+              <select class="select_modify" name="printer" id="printer">
+                <option value="">请选择打印</option>
+                <option value="0">打印</option>
+                <option value="1">不打印</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">栏目</label>
+            <div class="layui-input-block">
+              <select class="select_modify" name="column">
+                <option value="">请选择店内分类</option>
+                <option value="0">在线预约</option>
+                <option value="1">线下预约</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">权重</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="weights" placeholder="值越大展示越靠前">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">新品</label>
+            <div class="layui-input-block">
+                <input type="radio" name="news" value="是" title="是" checked>
+                <input type="radio" name="news" value="否" title="否">
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">推荐</label>
+            <div class="layui-input-block">
+                <input type="radio" name="recommend" value="是" title="是" checked>
+                <input type="radio" name="recommend" value="否" title="否">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">配图</label>
+              <div class="layui-input-block">
+                <button type="button" class="layui-btn" id="logoBtn">
+                  <i class="layui-icon">&#xe67c;</i>上传配图
+                </button>
+                <button type="button" class="layui-btn layui-btn-warm" id="logoupload">开始上传</button>
+              </div>
+              <div class="layui-input-block">
+                <span>尺寸要求：a×b</span>
+              </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+              <label class="layui-form-label">组图</label>
+              <div class="layui-input-block">
+                  <div class="box1">
+                    <div class="controls need-img">
+                        <button type="button" class="layui-btn layui-btn-primary" id="upload_img_icon">上传图片</button>
+                        <div class="upload-img-box">
+                        </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="layui-input-block">
+                <span>尺寸要求：a×b</span>
+              </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">优惠</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="Offer" placeholder="请输入优惠">
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">库存</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="Stock" placeholder="请输入库存">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">烹饪方式</label>
+            <div class="layui-input-block">
+              <select class="select_modify" name="cook" id="cook">
+                <option value="">请选择烹饪方式</option>
+                <option value="0">煎</option>
+                <option value="1">炒</option>
+                <option value="2">烹</option>
+                <option value="3">炸</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">耗时</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="Hour" placeholder="0">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">香菜</label>
+            <div class="layui-input-block">
+                <input type="radio" name="parsley" value="有" title="有" checked>
+                <input type="radio" name="parsley" value="无" title="无">
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">蒜</label>
+            <div class="layui-input-block">
+                <input type="radio" name="garlic" value="有" title="有" checked>
+                <input type="radio" name="garlic" value="无" title="无">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">辣度</label>
+            <div class="layui-input-block">
+              <select class="select_modify" name="Spicy" id="Spicy">
+                <option value="">请选择辣度</option>
+                <option value="0">一级</option>
+                <option value="1">二级</option>
+                <option value="2">三级</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">提成</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="Commission" placeholder="请输入提成">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">原价</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="Oriprice" placeholder="请输入原价">
+            </div>
+          </div>
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">现价</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="Currprice" placeholder="请输入现价">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md4 layui-col-sm4 layui-col-xs4">
+            <label class="layui-form-label">规格</label>
+            <div class="layui-input-block">
+                <input type="radio" name="format"  lay-filter="format" value="有" title="有">
+                <input type="radio" name="format"  lay-filter="format" value="无" title="无" checked>
+            </div>
+          </div>
+          <div class="layui-col-md8 layui-col-sm8 layui-col-xs8">
+            <div class="oneformal">
+              <label class="layui-form-label">价格表</label>
+              <div class="layui-inline">
+                <input type="text" class="layui-input" id="formater" placeholder="请输入规格">
+              </div>
+              <div class="layui-inline"> 
+                <input type="text" class="layui-input" id="price" placeholder="请输入价格">
+              </div>
+            </div>
+            <div class="threeformal hidediv">
+             <!--  <label class="layui-form-label">价格表</label> -->
+             <!--  <div class="layui-inline">
+                <input type="text" class="layui-input" id="format1" placeholder="请输入规格1"> 
+              </div>
+              <div class="layui-inline"> 
+                <input type="text" class="layui-input" id="price1" placeholder="请输入价格1">
+              </div> -->
+
+              <label class="layui-form-label"></label>
+              <div class="layui-inline">
+                <input type="text" class="layui-input" id="format2" placeholder="请输入规格2"> 
+              </div>
+              <div class="layui-inline">  
+                <input type="text" class="layui-input" id="price2" placeholder="请输入价格2">
+              </div>
+
+              <label class="layui-form-label"></label>
+              <div class="layui-inline">
+                <input type="text" class="layui-input" id="format3" placeholder="请输入规格3"> 
+              </div>
+              <div class="layui-inline">  
+                <input type="text" class="layui-input" id="price3" placeholder="请输入价格3">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">限购</label>
+            <div class="layui-input-block">
+              <input type="text" class="layui-input" id="limitNum" placeholder="请输入限购">
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <div class="layui-col-md6 layui-col-sm6 layui-col-xs6">
+            <label class="layui-form-label">简介</label>
+            <div class="layui-input-block">
+                <textarea id="introduce" name="introduce" placeholder="请输入简介" class="layui-textarea"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="layui-form-item" >
+            <div class="layui-input-block">
+              <input type="button" value="确定" onclick="modify()" class="layui-btn layui-btn-normal"/>
+              <input type="button" value="取消" onclick="quit()" class="layui-btn"/>
+            </div>
+          </div>
+      </div>
+    </div>
+  </body>
+   	<script src="../js/jquery-3.3.1.js"></script>
+    <script src="../js/colResizable-1.6.min.js"></script>
+  	<script src="../layui/layui.js"></script>
+  	<!-- 引入模块 -->
+  	<script>
+      layui.use(['element','form', 'element','laydate','jquery'], function(){
+        var element = layui.element,$=layui.jquery;
+        var form = layui.form;
+        var laydate = layui.laydate;
+        var $ = layui.$;
+    });
+    </script>
+    <script>
+    layui.use('form', function(){
+      var form = layui.form;
+      form.on('radio(format)', function(data){  //点击规格有无
+        console.log(data.value);                //被点击的radio的value值
+        if(data.value == '有'){
+          // $('.oneformal').addClass('hidediv');
+          $('.threeformal').removeClass('hidediv');
+        }else{
+          // $('.oneformal').removeClass('hidediv');
+          $('.threeformal').addClass('hidediv');
+        }
+      }); 
+    });
+    layui.use(['element','jquery'], function(){
+      var element = layui.element,$=layui.jquery;
+    });
+  </script>
+    <script>  
+      //修改
+    function modify(){          
+     
+      var dishesName = $.trim($('#dishesName').val());
+      var type = $.trim($('#type').val());
+      var OrderCode= $.trim($('#OrderCode').val());
+      var printer = $.trim($('#printer').val());
+      var column = $.trim($('#column').val());
+      var weights= $.trim($('#weights').val());
+      var news = $('#news').val();
+      var recommend = $.trim($('#recommend').val());
+      var Offer = $.trim($('#Offer').val());
+      var Stock= $.trim($('#Stock').val());
+      var cook = $.trim($('#cook').val());
+      var Hour = $.trim($('#Hour').val());
+      var parsley = $('input:radio[name="parsley"]：checked').val();
+      var garlic = $('input:radio[name="garlic"]：checked').val();
+      var Spicy = $.trim($('#Spicy').val());
+      var Commission= $.trim($('#Commission').val());
+      var Oriprice= $.trim($('#Oriprice').val());
+      var Currprice= $.trim($('#Currprice').val());
+      var format = $('input:radio[name="format"]：checked').val();
+      var limitNum= $.trim($('#limitNum').val());
+      var introduce= $.trim($('#introduce').val());
+      if(OrderCode==""|| dishesName==""||Offer==""|| Hour==""||Stock==""||Oriprice==""||Commission==""||weights==""||Currprice==""||limitNum==""||introduce==""){
+              alert("输入数据不能为空");
+               return;
+             }
+              $.ajax({
+                  url:'${PATH}/user/modifyUser.do',
+                  type: 'post',
+                  data: {'number':number,'OrderCode':OrderCode,'dishesName':dishesName,'Offer':Offer,'Hour':Hour,'Stock':Stock,'Oriprice':Oriprice,'Commission':Commission,'Spicy':Spicy,'cook':cook,'parsley':parsley,'garlic':garlic,'column':column,'printer':printer,'news':news,'recommend':recommend,'introduce':introduce,'format':format,'weights':weights,'Currprice':Currprice,'limitNum':limitNum,'type':type,'user_id':'${user.user_id}'},
+                  dataType: 'JSON',
+                  success: function(result){
+                      var field = result.state;
+                      if(field=='0'){
+                          alert(result.message);
+                          window.parent.location.reload();
+                          var index = parent.layer.getFrameIndex(window.name);
+                          parent.layer.close(index);
+                      }else{
+                          alert(result.message);
+                      return;
+                    }
+                  }
+              });         
+      }
+    function quit(){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.layer.close(index);
+      }
+  </script> 
+  <script type="text/javascript">
+    layui.use('upload',function(){
+      var upload = layui.upload;
+      /*LOGO上传*/
+      upload.render({
+        elem: '#logoBtn'
+        ,url: '../updatePersonalById.do'
+        ,accept: 'file'
+        ,auto: false
+        ,bindAction: '#logoupload'
+        ,done: function(res){
+            alert(res.data.src);
+            $("[name=userImage]").val(res.data.src);
+         }           
+      });
+     /*组图上传*/
+      upload.render({
+        elem: '#fileBtn'
+        ,url: '../updatePersonalById.do'
+        ,accept: 'file'
+        ,auto: false
+        ,bindAction: '#uploadBtn'
+        ,done: function(res){
+          alert(res.data.src);
+          $("[name=userImage]").val(res.data.src);
+        }           
+      });
+    });
+  </script>
+  <script>
+    var upurl = "{:url('xiaoguotu/upload')}"; //上传图片地址
+    layui.use(['layer','upload'], function(){
+        var layer = layui.layer;
+        var upload = layui.upload;
+        upload.render({ //上传图片
+            elem: '#upload_img_icon',
+            url: upurl,
+            multiple: true, //是否允许多文件上传。设置 true即可开启。不支持ie8/9
+            auto:true,//自动上传
+            before: function(obj) {
+                layer.msg('图片上传中...', {
+                    icon: 16,
+                    shade: 0.01,
+                    time: 0
+                })
+            },
+            done: function(res) {
+                layer.close(layer.msg('上传成功！'));
+                $('.upload-img-box').append('<dd class="upload-icon-img" ><div class="upload-pre-item"><i onclick="deleteImg($(this))"   class="layui-icon"></i><img src="' + res.data + '" class="img" ><input type="hidden" name="case_images[]" value="' + res.data + '" /></div></dd>');
+            }
+            ,error: function(){
+                layer.msg('上传错误！');
+            }
+        });
+
+    });
+    function deleteImg(obj){
+        //删除页面信息
+        obj.parent().parent('.upload-icon-img').remove();
+        //删除本地图片（ajax)
+        //删除数据库图片
+    }
+  </script>
+</html>

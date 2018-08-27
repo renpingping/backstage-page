@@ -1,0 +1,31 @@
+.member_box{
+	margin: 10px;
+}
+.member_title{
+	margin: 10px 20px;
+	font-size: 18px;
+	font-weight: 600;
+}
+.line{
+	width: 100%;
+	height: 1px;
+	background-color: lightgrey;
+	margin-top: 10px;
+}
+
+thead tr th{
+	text-align: center !important;
+}
+td,th{
+    text-align: center;
+}
+tr td a{
+	background-color: white !important!;   
+            }
+a:hover{
+	color: blue !important;
+}
+#add_content{
+	display: none;
+}
+

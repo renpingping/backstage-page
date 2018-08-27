@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+	<link rel="stylesheet" href="../css/store.css" media="all">
+	<link rel="stylesheet" href="../css/donationOrder.css" media="all">
+	<script src="../js/jquery-3.3.1.js"></script>
+  <script src="../layui/layui.js"></script>
+		<style>
+			.layui-btn-xs{
+				margin: 5px!important;
+				margin-right: 5px!important;
+			}
+			table th,table td{
+				text-align: center!important;
+			}
+			.hidediv{
+				display: none;
+			}
+		</style>
+</head>
+<body>
+	<div class="content_body">
+		<span class="layui-breadcrumb nav_loc">
+			<span>当前位置：</span>
+		  <!-- <a href="">门店管理</a> -->
+		  <a><cite>菜品库管理</cite></a>
+		</span>
+		<!-- 内容开始 -->
+		<div class="store_box">
+			<div class="dine_title">菜品库管理</div>
+			<!-- 搜索部分 start -->
+			<div class="layui-inline">
+				<form>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label"></label>
+							<select class="select_modify" name="role" lay-verify="required">
+				        <option value="">请选择标签</option>
+				        <option value="0">10:00-14:00</option>
+				        <option value="1">16:00-19:00</option>
+				        <option value="1">19:00-23:00</option>
+			      	</select>
+			      </div>
+						<div class="layui-inline">
+			      	<input type="text" class="layui-input" placeholder="名称">
+			      </div>
+						<div class="layui-inline button_content">	
+							<button class="layui-btn" data-type="reload">搜索</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- 操作按钮 -->
+			<div class="layui-inline" style="margin-top: -20px">
+				<div class="button_content">
+					<a class="layui-btn layui-btn-normal" href="javascript:addDashes();" id="add">添加</a>		
+					<a class="layui-btn layui-btn-warm" href="javascript:location.reload();">刷新</a>
+				</div>
+			</div>
+			<!-- 搜索部分 end -->
+			<hr>
+			<!-- 查看订单内容 start -->
+			<div class="layui-form">
+				<!-- 订单表格 start -->
+				<div class="table_box">
+					<table class="layui-table table" id="sample" lay-size="sm">
+					  <thead>
+					    <tr>
+					    	<th><input type="checkbox"  id="allChoose" lay-skin="primary" lay-filter="allChoose" /></th>
+					      <th>序号</th>
+					      <th>名称</th>
+					      <th>标签</th>
+					      <th>配图</th>
+					      <th>规格</th>
+					      <th>原价</th>
+					      <th>现价</th>
+					      <th>烹饪方式</th> 
+					      <th>时长（分钟）</th>
+					      <th>香菜</th>
+					      <th>蒜</th>
+					      <th>辣度</th>
+					      <th>操作</th>
+					    </tr> 
+					  </thead>
+					  <tbody>
+					    <tr>
+					    	<td><input type="checkbox" lay-skin="primary" /></td>
+					      <td>1</td>
+					      <td>在线预约</td>
+					      <td>7491832659</td>
+					      <td>经北四路</td>
+					      <td>2号</td>
+					      <td>128</td>
+					      <td>2019/09/09</td>
+					      <td>16664668384</td>
+					      <td>12</td>
+					      <td>否</td>
+					      <td>否</td>
+					      <td>7</td>
+					      <td>
+					        <a href="javascript:view();" class="layui-btn layui-btn-xs">查看物料单</a>
+					      	<a href="javascript:editDashes();" class="layui-btn layui-btn-normal layui-btn-xs">编辑</a>
+					      	<a href="javascript:delDashes();" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
+						    </td>
+					    </tr>
+					    <tr>
+					    	<td><input type="checkbox" lay-skin="primary" /></td>
+					      <td>1</td>
+					      <td>在线预约</td>
+					      <td>7491832659</td>
+					      <td>经北四路</td>
+					      <td>2号</td>
+					      <td>128</td>
+					      <td>2019/09/09</td>
+					      <td>16664668384</td>
+					      <td>34</td>
+					      <td>否</td>
+					      <td>否</td>
+					      <td>5</td>
+					      <td>
+					        <a href="javascript:view();" class="layui-btn layui-btn-xs">查看物料单</a>
+					      	<a href="javascript:editDashes();" class="layui-btn layui-btn-normal layui-btn-xs">编辑</a>
+					      	<a href="javascript:delDashes();" class="layui-btn layui-btn-danger layui-btn-xs">删除</a>
+						    </td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+				
+  		</div>
+		</div>
+	</div>
+</body>
+	
+  <script src="../js/colResizable-1.6.min.js"></script>
+  <script>
+		layui.use(['element','jquery','form'], function(){
+		  	var form = layui.form;
+		  	var element = layui.element,$=layui.jquery;
+		});
+	</script>
+	<script type="text/javascript">
+    $(function() {
+        // $("table").colResizable();
+        var onSampleResized = function(e){  
+			    var table = $(e.currentTarget); //reference to the resized table
+			  };  
+
+			 $("#sample").colResizable({
+			    liveDrag:true,
+			    gripInnerHtml:"<div class='grip'></div>", 
+			    draggingClass:"dragging", 
+			    onResize:onSampleResized
+			  });
+    })
+	</script>
+	  <!-- 设置全选框 -->
+	<script type="text/javascript">
+		var $ = layui.jquery;
+		layui.use('form', function(){
+	  	var form = layui.form;
+			//全选
+			form.on('checkbox(allChoose)', function(data){
+			    var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+			    child.each(function(index, item){
+			      item.checked = data.elem.checked;
+			    });
+			    form.render('checkbox');
+			});
+		});
+	</script>
+	<script>
+		function addDashes() {
+			layer.open({
+				type: 2,
+				area: ['80%','90%'],
+				title: '新增菜品数据',
+				content: 'dishesManage_add.html',
+				yes: function(index){
+					layer.close(index);
+					//ajax ...
+					
+				}
+			});
+		}
+		function editDashes() {
+			layer.open({
+				type: 2,
+				area: ['80%','90%'],
+				title: '编辑菜品',
+				content: 'dishesManage_edit.html',
+				yes: function(index){
+					layer.close(index);
+					//ajax ...
+					
+				}
+			});
+		}
+		function delDashes() {
+			layer.open({
+				area: ['30%','30%'],
+				title: '删除',
+				btn: ['确定','取消'],
+				content: '确定删除吗？',
+				yes: function(index){
+					layer.close(index);
+					//ajax ...
+					
+				}
+			});
+		}
+		function view() {
+			layer.open({
+				type: 2,
+				area: ['80%','90%'],
+				title: '菜品列表/<span id="dishesName_materiel">【小牛排】</span>的物料单',
+				content: 'dishesManage_viewMateriel.html',
+				yes: function(index){
+					layer.close(index);
+					console.log('保存');
+					// Ajax...
+				}
+			});
+		}
+</script>
