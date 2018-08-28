@@ -52,32 +52,12 @@
 					</table>
 					<!-- 操作按钮 -->
 					<div class="button_content">
-						<a class="layui-btn layui-btn-sm" href="javascript:;" id="add">添加</a>
+						<a class="layui-btn layui-btn-sm" href="javascript:add();" id="add">添加</a>
 						<a class="layui-btn layui-btn-normal layui-btn-sm" href="javascript:location.reload();">刷新</a>
 					</div>
 				</div>
 			</div>
-			<div id="add_content"  style="display: none; margin:20px">
-				<div class="layui-form-item">
-					<label class="layui-form-label">名称</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input" id="timeName" required lay-verify="required" placeholder="请输入名称">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">开始时间</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input" id="calStart" required lay-verify="required" placeholder="请选择开始时间">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">结束时间</label>
-					<div class="layui-input-block">
-						<input type="text" class="layui-input" id="calEnd" required lay-verify="required" placeholder="请选择结束时间">
-					</div>
-				</div>
 
-			</div>
 		</div>
 </body>
 	<script src="../js/jquery-3.3.1.js"></script>
@@ -87,21 +67,7 @@
 		layui.use('form', function(){
 	  	var form = layui.form;
 		});
-		layui.use(['element','jquery'], function(){
-	  	var element = layui.element,$=layui.jquery;
-		});
-		layui.use('laydate', function(){
-		  var laydate = layui.laydate;
-		  //执行一个laydate实例
-		  laydate.render({
-		    elem: '#calStart' //指定元素
-		    ,type: 'time'
-		  });
-		  laydate.render({
-		    elem: '#calEnd' //指定元素
-		    ,type: 'time'
-		  });
-		});
+		
 	</script>
 	<script>
 		/* 表格左右拉拽 */
@@ -116,33 +82,20 @@
 		})
 	</script>
   <script>
+		//添加服务时间
+		function add(){
+			layer.open({
+				type: 2,
+				area: ['60%','65%'],
+				title: '添加服务时间',
+				content: ('serviceTime_add.html'),
+				
+			});
+		};
+
+
 		$(function() {
 			var del = $('#del');
-			var add = $('#add');
-			var timeName = $('#timeName');
-			var startTime = $('#calStart');
-			var endTime = $('#calEnd');
-			//添加服务时间
-			add.on('click',function(){
-				layer.open({
-					type: 1,
-					area: ['60%','65%'],
-					btn: '保存',
-					btnAlign: 'r',
-					title: '添加服务时间',
-					content: $('#add_content'),
-					yes: function(index){
-						if(TimeDifference()){   //日期填写正确
-							layer.close(index);
-							console.log('保存'); 
-							// Ajax ...  
-							
-						}else{
-							console.log('失败');
-						}
-					}
-				});
-			});
 			//删除
 			del.on('click',function(){
 				layer.open({
@@ -157,52 +110,7 @@
 					}
 				});
 			});
-			function TimeDifference(){
-				//定义两个变量time1,time2分别保存开始和结束时间
-				var time1 = startTime.val();
-				var time2 = endTime.val();
-				if(timeName.val() == ""){
-					layer.msg('请填写名称');
-				   return false;
-				}
-				else if(time1 == ""){
-					layer.msg('请选择开始时间');
-				   return false;
-				}
-				else if (time2 == "") {
-					layer.msg('请选择结束时间');
-				   return false;
-				}
-				else if(time1>=time2) //判断开始时间是否大于结束日期
-				{
-				   layer.msg("开始时间不能大于等于结束时间！");
-				   return false;
-				}else{
-					//小时数和分钟数相加得到总的分钟数
-					//截取字符串得到时间的小时数
-					//把小时数转化成为秒数
-					var min1=parseInt(time1.substr(0,2))*3600+parseInt(time1.substr(3,2))*60+parseInt(time1.substr(6,2));
-					var min2=parseInt(time2.substr(0,2))*3600+parseInt(time2.substr(3,2))*60+parseInt(time2.substr(6,2));
-
-					//两个分钟数相减得到时间部分的差值，以分钟为单位
-					var minutes=(min2-min1)/60;
-					if(minutes<60){
-						layer.open({
-							area: ['30%','35%'],
-							btn: '确认',
-							title: '餐点间隔',
-							content: '每个餐点至少一个小时',
-							yes: function(index){
-								layer.close(index);
-								console.log('确认');
-								return false;
-							}
-						});
-					}else{
-						return true;
-					}
-				}
-			}
+			
 		})
 	</script>
 </html>

@@ -93,31 +93,31 @@
       var tol = $.trim($('#tol').val());
       var price = $.trim($('#price').val());                            
       if( coupon == ""||date==""|| start==""|| end=="" || tol==""|| price==""){
-              alert("输入数据不能为空");
-               return;
-             }
-              $.ajax({
-                  url:'${PATH}/user/modifyUser.do',
-                  type: 'post',
-                  data: {'coupon':coupon,'date':date,'start':start,'end':end,'tol':tol,'price':price,'user_id':'${user.user_id}'},
-                  dataType: 'JSON',
-                  success: function(result){
-                      var field = result.state;
-                      if(field=='0'){
-                          alert(result.message);
-                          window.parent.location.reload();
-                          var index = parent.layer.getFrameIndex(window.name);
-                          parent.layer.close(index);
-                      }else{
-                          alert(result.message);
-                      return;
-                    }
-                  }
-              });         
+        alert("输入数据不能为空");
+        return;
       }
+      $.ajax({
+        url:'${PATH}/user/modifyUser.do',
+        type: 'post',
+        data: {'coupon':coupon,'date':date,'start':start,'end':end,'tol':tol,'price':price,'user_id':'${user.user_id}'},
+        dataType: 'JSON',
+        success: function(result){
+          var field = result.state;
+          if(field=='0'){
+            alert(result.message);
+            window.parent.location.reload();
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+          }else{
+              alert(result.message);
+              return;
+          }
+        }
+      });         
+    }
     function quit(){
-          var index = parent.layer.getFrameIndex(window.name);
-          parent.layer.close(index);
-      }
+      var index = parent.layer.getFrameIndex(window.name);
+      parent.layer.close(index);
+    }
   </script> 
 </html>
